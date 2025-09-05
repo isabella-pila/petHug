@@ -34,13 +34,13 @@ export function HighLight({ id, title, image, category }: HighLightProps) {
       onPress={() => navigation.navigate("PetDetails", { id, title })}
     >
       <Image
-        // ✅ CORREÇÃO 2: Lógica para tratar os diferentes tipos de imagem
+        
         source={
           image
             ? typeof image === "string"
               ? { uri: image } // Se for string, usa como URI
               : image // Se não, usa diretamente (resultado do require)
-            : { uri: "https://placehold.co/200x200?text=Pet" } // Fallback
+            : { uri: "https://placehold.co/200x200?text=Pet" } 
         }
         style={styles.cardImage}
       />
@@ -58,7 +58,7 @@ const styles = StyleSheet.create({
   card: {
     backgroundColor: colors.background,
     borderRadius: 16,
-    borderColor: colors.primary, // Corrigido de 'borderBlockColor' para 'borderColor'
+    borderColor: colors.primary, 
     borderWidth: 2,
     margin: 8,
     alignItems: "center",

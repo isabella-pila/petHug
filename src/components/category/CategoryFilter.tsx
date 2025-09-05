@@ -15,13 +15,12 @@ const CATEGORIES = [
   { key: 'outros', label: 'Outros', iconUrl: 'https://res.cloudinary.com/dtwruiuyw/image/upload/v1756985362/passarinho_bbkaaz.png' },
 ];
 
-// 👇 1. Definimos um "tipo" para as props do nosso componente
+
 type CategoryFilterProps = {
   selectedCategory: string;
   onSelectCategory: (categoryKey: string) => void; // A prop é uma função que recebe uma string e não retorna nada
 };
 
-// 👇 2. Aplicamos o tipo às props na declaração da função
 export function CategoryFilter({ selectedCategory, onSelectCategory }: CategoryFilterProps) {
   return (
     <View style={styles.filterContainer}>

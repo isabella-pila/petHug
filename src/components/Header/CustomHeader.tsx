@@ -15,7 +15,8 @@ export default function CustomHeader() {
 
 const styles = StyleSheet.create({
   safeArea: {
-    backgroundColor: '#C8B2F6', // Mesma cor do header para preencher a área da status bar
+    backgroundColor: '#C8B2F6', 
+    paddingTop: StatusBar.currentHeight || 0,
   },
   headerContainer: {
     flexDirection: 'row', 
@@ -24,9 +25,8 @@ const styles = StyleSheet.create({
     paddingHorizontal: 15, 
     paddingVertical: 10, 
     borderBottomWidth: 1.5, 
-    borderBottomColor: '#392566', // Cor da linha inferior (um roxo escuro)
-    // Se estiver no Android e quiser adicionar a elevação da status bar:
-    // paddingTop: StatusBar.currentHeight, 
+    borderBottomColor: '#392566', 
+   
   },
   logo: {
     width: 45, // Largura da imagem

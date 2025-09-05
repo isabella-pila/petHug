@@ -32,12 +32,18 @@ export default function HomeScreen() {
   return (
     <View style={styles.container}>
       <CustomHeader />
-      
+
+       <View style={{ alignItems:'center', marginTop:10}}>
+      <Text style={styles.textoAdocao}>Filtre pela sua preferência pet</Text>
+      </View>
+
       <CategoryFilter 
         selectedCategory={selectedCategory}
         onSelectCategory={setSelectedCategory}
       />
-      <Text style={styles.textoAdocao}>Animais disponiveis para adoção</Text>
+      <View style={{ alignItems:'center', marginTop:10}}>
+      <Text style={styles.textoAdocao}>Animais disponíveis para adoção:</Text>
+      </View>
       <FlatList
         data={filteredData}
         renderItem={({ item }) => (
@@ -65,7 +71,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: colors.background,
-    paddingTop: 50,
+
   
   },
   gridContainer: {
@@ -76,10 +82,11 @@ const styles = StyleSheet.create({
     paddingHorizontal: 5,
   },
   textoAdocao:{
-    fontSize:18,
+    fontSize:23,
     fontFamily:'Itim-Regular',
     color:colors.primary,
-    
+  
+
   },
 
   emptyContainer: {
