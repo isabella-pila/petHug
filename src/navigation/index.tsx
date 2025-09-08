@@ -1,15 +1,15 @@
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import AppStackRoutes from './stack.routes';
+import { LoginStackNavigation as StackLoginNavigation } from './LoginstackNavigation';
 
 export default function Routes() {
-  // FUTURAMENTE:
-  // const isUserLoggedIn = true; // Você pegaria essa informação do estado global, AsyncStorage, etc.
 
+ const isUserLoggedIn = true; 
   return (
     <NavigationContainer>
-      {/* {isUserLoggedIn ? <AppStackRoutes /> : <StackLoginNavigation />} */}
-      <AppStackRoutes />
+       {isUserLoggedIn ? <AppStackRoutes /> : <StackLoginNavigation />} 
+     
     </NavigationContainer>
   );
 }

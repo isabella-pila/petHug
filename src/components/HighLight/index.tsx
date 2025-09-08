@@ -18,20 +18,21 @@ const { width } = Dimensions.get("window");
 type HighLightProps = {
   id: string;
   title: string;
-  image?: string | number;
+  image: string | number;
   category?: string;
+  descricao: string
 };
 
 type NavProp = NativeStackNavigationProp<RootStackParamList, "MainTabs">;
 
-export function HighLight({ id, title, image, category }: HighLightProps) {
+export function HighLight({ id, title, image, category, descricao }: HighLightProps) {
   const navigation = useNavigation<NavProp>();
 
   return (
     <TouchableOpacity
       style={styles.card}
       activeOpacity={0.8}
-      onPress={() => navigation.navigate("PetDetails", { id, title })}
+      onPress={() => navigation.navigate("PetDetails", { id, title, image, descricao })}
     >
       <Image
         

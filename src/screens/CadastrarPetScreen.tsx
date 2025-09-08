@@ -4,6 +4,7 @@ import { View, Text, StyleSheet } from "react-native";
 export default function CadastrarPetScreen() {
   return (
     <View style={styles.container}>
+      <View></View>
       <Text style={styles.text}>Tela de Cadastro Pet 🐶</Text>
     </View>
   );

@@ -13,9 +13,9 @@ const colors = {
 
 // Seus dados estão corretos, misturando require e strings
 const PETS_DATA = [
-  { id: '1', title: 'Frajola', category: 'gato', image: require('../../assets/Lila.jpg') },
-  { id: '2', title: 'Lila', category: 'cachorro', image: 'https://res.cloudinary.com/dtwruiuyw/image/upload/v1756996038/Lila_carqsz.jpg' },
-  { id: '3', title: 'Piu-Piu', category: 'outros', image: 'https://res.cloudinary.com/dtwruiuyw/image/upload/v1677872608/pwmllcaxpl5foknnqdz9.png' },
+  { id: '1', title: 'Frajola', category: 'gato', image: require('../../assets/Lila.jpg'), descricao: "blablabla leyeyeyeyyeyeyyeyyeyyeyeyeyyeyeyyeyeyyeyeyeyyeyeeyeyye" },
+  { id: '2', title: 'Lila', category: 'cachorro', image: 'https://res.cloudinary.com/dtwruiuyw/image/upload/v1756996038/Lila_carqsz.jpg',descricao: "blablabla" },
+  { id: '3', title: 'Piu-Piu', category: 'outros', image: 'https://res.cloudinary.com/dtwruiuyw/image/upload/v1677872608/pwmllcaxpl5foknnqdz9.png',descricao: "blablabla" },
   // ... resto dos dados
 ];
 
@@ -32,7 +32,6 @@ export default function HomeScreen() {
   return (
     <View style={styles.container}>
       <CustomHeader />
-
        <View style={{ alignItems:'center', marginTop:10}}>
       <Text style={styles.textoAdocao}>Filtre pela sua preferência pet</Text>
       </View>
@@ -52,6 +51,7 @@ export default function HomeScreen() {
             title={item.title}
             image={item.image}
             category={item.category}
+            descricao={item.descricao}
           />
         )}
         keyExtractor={item => item.id}
