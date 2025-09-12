@@ -9,10 +9,8 @@ const LoginStack = createNativeStackNavigator({
         Register: RegisterScreen
     }
 })
-
 type LoginStackParamList = StaticParamList<typeof LoginStack>
 type LoginScreenProp = NativeStackNavigationProp<LoginStackParamList, 'Login'>
-
 export type LoginTypes = {
     navigation: LoginScreenProp
 }

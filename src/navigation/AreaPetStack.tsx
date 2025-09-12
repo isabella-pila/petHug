@@ -4,11 +4,11 @@ import AreaPetScreen from '../screens/AreaPetScreen';
 import CadastrarPetScreen from '../screens/CadastrarPetScreen';
 import EditarPetScreen from '../screens/EditarPet';
 
-// Tipos para as rotas desta pilha
+
 export type AreaPetStackParamList = {
   AreaPetHome: undefined;
   CadastrarPet: undefined;
-  EditarPet: undefined; // Adicione parâmetros se necessário, ex: { petId: string }
+  EditarPet: undefined;
 };
 
 const Stack = createNativeStackNavigator<AreaPetStackParamList>();

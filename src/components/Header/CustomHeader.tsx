@@ -17,11 +17,12 @@ const styles = StyleSheet.create({
   safeArea: {
     backgroundColor: '#C8B2F6', 
     paddingTop: StatusBar.currentHeight || 0,
+    
   },
   headerContainer: {
     flexDirection: 'row', 
     alignItems: 'center', 
-    backgroundColor: '#C8B2F6', 
+    backgroundColor: '#C8B2F3', 
     paddingHorizontal: 15, 
     paddingVertical: 10, 
     borderBottomWidth: 1.5, 

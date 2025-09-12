@@ -84,7 +84,6 @@ export function LoginScreen({ navigation }: LoginTypes) {
     borderRadius:50,
     justifyContent:'center',
     alignItems:'center',
-    elevation: 5,
     paddingTop: '10%',
   },
 
@@ -101,13 +100,9 @@ export function LoginScreen({ navigation }: LoginTypes) {
     flexDirection: "row",
     alignItems: "center",
     borderWidth: 2,
-    borderColor: colors.primary,
+    borderColor: '#d3cfcf',
     borderRadius: 20,
     width: '90%',
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 1,
-    elevation: 5,
     backgroundColor: '#D9D9D9',
   },
 

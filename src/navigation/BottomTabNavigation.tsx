@@ -1,10 +1,9 @@
 import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Ionicons } from '@expo/vector-icons';
-
-import HomeScreen from '../screens/HomeScreen';
-import CadastrarPetScreen from '../screens/CadastrarPetScreen';
+import HomeStack from './HomeStack'; 
 import AreaPetScreen from '../screens/AreaPetScreen';
+
 const Tab = createBottomTabNavigator();
 
 export default function BottomTabNavigation() {
@@ -14,17 +13,16 @@ export default function BottomTabNavigation() {
         headerShown:false,
         tabBarActiveTintColor: '#392566',
         tabBarInactiveTintColor: '#fff',
-        tabBarStyle: { backgroundColor: '#C8B2F6',
-            borderTopWidth: 2, // Largura da linha inferior
-            borderTopColor: '#392566'
-            
+        tabBarStyle: { 
+          backgroundColor: '#C8B2F6',
+          borderTopWidth: 2,
+          borderTopColor: '#392566'
         },
-      
       }}
     >
       <Tab.Screen
         name="Home"
-        component={HomeScreen}
+        component={HomeStack}
         options={{
           tabBarIcon: ({ color, size }) => (
             <Ionicons name="home" size={size} color={color} />
@@ -33,7 +31,7 @@ export default function BottomTabNavigation() {
       />
       <Tab.Screen
         name="AreaPet"
-        component={AreaPetScreen}
+        component={AreaPetScreen} 
         options={{
           tabBarIcon: ({ color, size }) => (
             <Ionicons name="paw" size={size} color={color} />

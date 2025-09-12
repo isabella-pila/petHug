@@ -1,25 +1,23 @@
-// src/screens/HomeScreen.tsx
-
 import React, { useState, useMemo } from 'react';
 import { View, StyleSheet, FlatList, Text } from "react-native";
 import { HighLight } from "../components/HighLight";
 import { CategoryFilter } from '../components/category/CategoryFilter'; 
 import CustomHeader from '../components/Header/CustomHeader';
-
+import { useAuth } from "../context/auth";
 const colors = {
   background: '#EEE6FF',
   primary: '#392566',
 };
 
-// Seus dados estão corretos, misturando require e strings
 const PETS_DATA = [
   { id: '1', title: 'Frajola', category: 'gato', image: require('../../assets/Lila.jpg'), descricao: "blablabla leyeyeyeyyeyeyyeyyeyyeyeyeyyeyeyyeyeyyeyeyeyyeyeeyeyye" },
   { id: '2', title: 'Lila', category: 'cachorro', image: 'https://res.cloudinary.com/dtwruiuyw/image/upload/v1756996038/Lila_carqsz.jpg',descricao: "blablabla" },
   { id: '3', title: 'Piu-Piu', category: 'outros', image: 'https://res.cloudinary.com/dtwruiuyw/image/upload/v1677872608/pwmllcaxpl5foknnqdz9.png',descricao: "blablabla" },
-  // ... resto dos dados
 ];
 
 export default function HomeScreen() {
+  const {setLogin} = useAuth()
+
   const [selectedCategory, setSelectedCategory] = useState('todos');
 
   const filteredData = useMemo(() => {
