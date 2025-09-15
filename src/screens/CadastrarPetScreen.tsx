@@ -75,7 +75,7 @@ const styles = StyleSheet.create({
 
   caixa:{
 
-    height:'80%',
+    height:'90%',
     width:'120%',
     backgroundColor: colors.secundary,
     borderRadius:50,

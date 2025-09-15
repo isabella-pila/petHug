@@ -2,7 +2,7 @@ import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Ionicons } from '@expo/vector-icons';
 import HomeStack from './HomeStack'; 
-import AreaPetScreen from '../screens/AreaPetScreen';
+import AreaPetStack from './AreaPetStack'; // ✨ IMPORTAR O STACK
 
 const Tab = createBottomTabNavigator();
 
@@ -24,6 +24,7 @@ export default function BottomTabNavigation() {
         name="Home"
         component={HomeStack}
         options={{
+          tabBarLabel: 'Início', // Adicionei um label para clareza
           tabBarIcon: ({ color, size }) => (
             <Ionicons name="home" size={size} color={color} />
           ),
@@ -31,8 +32,9 @@ export default function BottomTabNavigation() {
       />
       <Tab.Screen
         name="AreaPet"
-        component={AreaPetScreen} 
+        component={AreaPetStack} // ✨ ALTERAR DE AreaPetScreen PARA AreaPetStack
         options={{
+          tabBarLabel: 'Meus Pets', // Adicionei um label para clareza
           tabBarIcon: ({ color, size }) => (
             <Ionicons name="paw" size={size} color={color} />
           ),

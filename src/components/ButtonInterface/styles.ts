@@ -9,12 +9,14 @@ export const styles = StyleSheet.create({
     backgroundColor: colors.primary,
     borderRadius: 20,
     margin: 15,
+    width: 200,
     
   },
   buttonSecondary: {
     backgroundColor: colors.primary,
     borderRadius: 20,
     margin: 10,
+    width: 200,
     
   },
   buttonThird: {

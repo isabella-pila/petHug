@@ -1,21 +1,14 @@
-import React, { useEffect } from 'react';
-import Routes from './src/navigation'; // Importa o orquestrador
-import { useFonts } from 'expo-font';
-import * as SplashScreen from 'expo-splash-screen';
+// Local: App.js (ou seu arquivo de entrada principal)
+
+import React from 'react';
+import { AuthProvider } from './src/context/auth'; // Importe o Provider
+import Navigation from './src/navigation/index'; // Seu arquivo de rotas
+
 export default function App() {
-    // Use `useFonts` only if you can't use the config plugin.
-  const [loaded, error] = useFonts({
-    'Itim-Regular': require('./assets/Itim-Regular.ttf'),
-  });
-
-  useEffect(() => {
-    if (loaded || error) {
-      SplashScreen.hideAsync();
-    }
-  }, [loaded, error]);
-
-  if (!loaded && !error) {
-    return null;
-  }
-  return <Routes />;
+  return (
+    // ✨ Envolva suas rotas com o AuthProvider
+    <AuthProvider>
+      <Navigation />
+    </AuthProvider>
+  );
 }

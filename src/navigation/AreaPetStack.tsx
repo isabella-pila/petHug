@@ -8,7 +8,7 @@ import EditarPetScreen from '../screens/EditarPet';
 export type AreaPetStackParamList = {
   AreaPetHome: undefined;
   CadastrarPet: undefined;
-  EditarPet: undefined;
+  EditarPet: { petId: string };
 };
 
 const Stack = createNativeStackNavigator<AreaPetStackParamList>();

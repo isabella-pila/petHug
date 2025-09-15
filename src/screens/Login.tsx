@@ -78,7 +78,7 @@ export function LoginScreen({ navigation }: LoginTypes) {
 
   caixa:{
 
-    height:'70%',
+    height:'80%',
     width:'120%',
     backgroundColor: colors.secondary,
     borderRadius:50,
