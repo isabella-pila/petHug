@@ -1,8 +1,14 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, Button, TouchableOpacity } from 'react-native';
 import CustomHeader from '../components/Header/CustomHeader';
+import { ButtonInterface } from '../components/ButtonInterface';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { useNavigation } from '@react-navigation/native';
+
+
 
 export default function AdoptionMessageScreen() {
+const navigation = useNavigation();
   return (
     <View style={styles.container}>
       <CustomHeader />
@@ -20,7 +26,12 @@ export default function AdoptionMessageScreen() {
           </Text>
           <Text style={styles.emailText}>pethug@queroajuda.com</Text>
         </View>
+      <TouchableOpacity  onPress={() => navigation.goBack()} style={styles.button}>
+      <Text style={{  color: '#fff', fontSize:20}}>Voltar</Text>
+    </TouchableOpacity>
       </View>
+
+
     </View>
   );
 }
@@ -62,5 +73,18 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontWeight: 'bold',
     color: '#392566',
+
   },
+  button:{
+      backgroundColor: '#392566',
+    borderRadius: 20,
+    margin: 15,
+    width: 120,
+    color: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center',
+    height:50, 
+
+  }
+
 });

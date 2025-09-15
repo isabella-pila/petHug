@@ -49,9 +49,13 @@ export default function PetDetailsScreen({ route }: Props) {
       </ScrollView>
 
       <View style={styles.footer}>
-        <TouchableOpacity style={styles.adoptButton} onPress={handleAdoptPress}>
+        <TouchableOpacity  onPress={() => navigation.goBack()} style={styles.button}>
+              <Text style={styles.adoptButtonText}>Voltar</Text>
+            </TouchableOpacity>
+        <TouchableOpacity style={styles.button} onPress={handleAdoptPress}>
           <Text style={styles.adoptButtonText}>Adotar</Text>
         </TouchableOpacity>
+         
       </View>
     </View>
   );
@@ -67,6 +71,17 @@ const styles = StyleSheet.create({
   container: { 
     flex: 1,
     backgroundColor: colors.background, 
+  },
+    button:{
+      backgroundColor: '#392566',
+    borderRadius: 20,
+    margin: 15,
+    width: 120,
+    color: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center',
+    height:50, 
+
   },
   scrollContent: {
     flexGrow: 1,
@@ -107,6 +122,7 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     width: 300,
     minHeight: 100,
+    height: 'auto',
     padding: 15,
   },
   mapa: {
@@ -126,6 +142,10 @@ const styles = StyleSheet.create({
   footer: {
     padding: 20,
     backgroundColor: colors.background,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between'
+    
   },
   adoptButton: {
     backgroundColor: colors.primary,

@@ -10,8 +10,8 @@ import { AreaPetStackParamList } from "../navigation/AreaPetStack";
 
 
 const MEUS_PETS_CADASTRADOS = [
-  { id: '1', nome: 'Bolinha', foto: 'url_da_foto_1', descricao: 'Um cãozinho muito amigável.' },
-  { id: '2', nome: 'Frajola', foto: 'url_da_foto_2', descricao: 'Gato muito esperto e brincalhão.' },
+  { id: '1', nome: 'Chica', foto: 'url_da_foto_1', descricao: 'Tenho 3 anos, sou porte pequeno e adoro brincar, correr e pular. Sou uma cadelinha com muita energia que precisa de espaço para brincar.' },
+  { id: '2', nome: 'Lila', foto: 'url_da_foto_2', descricao: 'Tenho 6 anos, sou porte pequeno uma idosa que so dorme, e muito carinhosa.' },
 ];
 
 type NavProp = NativeStackNavigationProp<AreaPetStackParamList, "AreaPetHome">;

@@ -1,10 +1,12 @@
 import React from 'react';
-import { KeyboardAvoidingView, View, Text, TextInput, Platform, Image } from 'react-native';
+import { KeyboardAvoidingView, View, Text, TextInput, Platform, Image, TouchableOpacity } from 'react-native';
 import { ButtonInterface } from '../components/ButtonInterface';
 import { Entypo, EvilIcons, Ionicons, MaterialIcons } from '@expo/vector-icons';
 import { StyleSheet } from 'react-native';
 import CustomHeader from '../components/Header/CustomHeader';
+import { useNavigation } from '@react-navigation/native';
 export default function CadastrarPetScreen() {
+  const navigation = useNavigation();
   return (
     
    <View style={styles.container}>
@@ -39,10 +41,12 @@ export default function CadastrarPetScreen() {
           />
         </View>
         <ButtonInterface title='Cadastrar' type='primary' onPress={()=> []} />
-  
+   <TouchableOpacity  onPress={() => navigation.goBack()} style={styles.button}>
+                    <Text style={styles.adoptButtonText}>Voltar</Text>
+          </TouchableOpacity>
         </View>
       </KeyboardAvoidingView>
-    </View>
+    </View> 
     </View>
   );
 }
@@ -54,7 +58,18 @@ const colors = {
 };
 
 const styles = StyleSheet.create({
-  
+    button:{
+      backgroundColor: '#392566',
+    borderRadius: 20,
+    margin: 15,
+    width: 120,
+    color: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center',
+    height:50, 
+
+  },
+
     logo: {
     width: 50, 
     height: 50, 
@@ -115,5 +130,11 @@ const styles = StyleSheet.create({
     padding: 10,
     width: "70%",
     
+  },
+   adoptButtonText: {
+    color: '#fff',
+    fontSize: 18,
+    fontWeight: 'bold',
+    fontFamily: 'Itim-regular',
   },
 });

@@ -1,17 +1,17 @@
 
 import React, { useState, useEffect } from 'react'; // ✨ Importar useState e useEffect
-import { KeyboardAvoidingView, View, Text, TextInput, Platform } from 'react-native';
+import { KeyboardAvoidingView, View, Text, TextInput, Platform, TouchableOpacity } from 'react-native';
 import { ButtonInterface } from '../components/ButtonInterface';
 import { Ionicons } from '@expo/vector-icons';
 import { StyleSheet } from 'react-native';
 import CustomHeader from '../components/Header/CustomHeader';
-import { RouteProp, useRoute } from '@react-navigation/native'; 
+import { RouteProp, useNavigation, useRoute } from '@react-navigation/native'; 
 import { AreaPetStackParamList } from '../navigation/AreaPetStack';
 
 // Usaremos os mesmos dados de exemplo para simular a busca no "banco de dados"
 const MEUS_PETS_CADASTRADOS = [
-  { id: '1', nome: 'Bolinha', foto: 'url_da_foto_1', descricao: 'Um cãozinho muito amigável.' },
-  { id: '2', nome: 'Frajola', foto: 'url_da_foto_2', descricao: 'Gato muito esperto e brincalhão.' },
+  { id: '1', nome: 'Chica', foto: 'url_da_foto_1', descricao: 'Tenho 3 anos, sou porte pequeno e adoro brincar, correr e pular. Sou uma cadelinha com muita energia que precisa de espaço para brincar.' },
+  { id: '2', nome: 'Lila', foto: 'url_da_foto_2', descricao: 'Tenho 6 anos, sou porte pequeno uma idosa que so dorme, e muito carinhosa.' },
 ];
 type EditarPetScreenRouteProp = RouteProp<AreaPetStackParamList, 'EditarPet'>
 
@@ -35,7 +35,7 @@ export default function EditarPetScreen() {
       setDescricao(petParaEditar.descricao);
     }
   }, [petId]); // Executa sempre que o petId mudar
-
+const navigation = useNavigation();
   return (
     <View style={styles.container}>
       <CustomHeader />
@@ -81,6 +81,9 @@ export default function EditarPetScreen() {
              
               console.log('Salvando:', { id: petId, nome, foto, descricao });
             }} />
+               <TouchableOpacity  onPress={() => navigation.goBack()} style={styles.button}>
+                                <Text style={styles.adoptButtonText}>Voltar</Text>
+                      </TouchableOpacity>
           </View>
         </KeyboardAvoidingView>
       </View>
@@ -96,7 +99,16 @@ const colors = {
 };
 
 const styles = StyleSheet.create({
-  
+   button:{
+      backgroundColor: '#392566',
+    borderRadius: 20,
+    margin: 15,
+    width: 120,
+    color: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center',
+    height:50, 
+   },
     logo: {
     width: 50, 
     height: 50, 
@@ -117,7 +129,7 @@ const styles = StyleSheet.create({
 
   caixa:{
 
-    height:'80%',
+    height:'90%',
     width:'120%',
     backgroundColor: colors.secundary,
     borderRadius:50,
@@ -157,5 +169,11 @@ const styles = StyleSheet.create({
     padding: 10,
     width: "70%",
     
+  },
+     adoptButtonText: {
+    color: '#fff',
+    fontSize: 18,
+    fontWeight: 'bold',
+    fontFamily: 'Itim-regular',
   },
 });

@@ -10,10 +10,13 @@ const colors = {
 };
 
 const PETS_DATA = [
-  { id: '1', title: 'Frajola', category: 'gato', image: require('../../assets/Lila.jpg'), descricao: "blablabla leyeyeyeyyeyeyyeyyeyyeyeyeyyeyeyyeyeyyeyeyeyyeyeeyeyye" },
-  { id: '2', title: 'Lila', category: 'cachorro', image: 'https://res.cloudinary.com/dtwruiuyw/image/upload/v1756996038/Lila_carqsz.jpg',descricao: "blablabla" },
-  { id: '3', title: 'Piu-Piu', category: 'outros', image: 'https://res.cloudinary.com/dtwruiuyw/image/upload/v1677872608/pwmllcaxpl5foknnqdz9.png',descricao: "blablabla" },
-];
+  { id: '1', title: 'Chica', category: 'cachorro', image: require('../../assets/chica.jpg'), descricao: "Tenho 3 anos, sou porte pequeno e adoro brincar, correr e pular. Sou uma cadelinha com muita energia que precisa de espaço para brincar." },
+    { id: '2', title: 'Lila', category: 'cachorro', image: require('../../assets/Lila.jpg'), descricao: "Tenho 6 anos, sou porte pequeno uma idosa que so dorme, e muito carinhosa." },
+      { id: '3', title: 'Nala', category: 'cachorro', image: require('../../assets/nala.jpg'), descricao: "Tenho 1 aninho. Sou uma filhotona que adora carinho e brincar de buscar a bolinha. Sou da raça Dachshund de porte pequeno." },
+        { id: '4', title: 'Juju', category: 'outros', image: require('../../assets/juju.jpg'), descricao: "Tenho 3 anos, sou uma galinha gigante e gorda so penso em comer o dia todo, sou bem mansa" },
+          { id: '5', title: 'Lilith', category: 'gato', image: require('../../assets/lilith.jpg'), descricao: "Tenho 4 anos, sou uma gatinha muito fofinha e gosto de carinhos" },
+            { id: '6', title: 'Symon', category: 'cachorro', image: require('../../assets/symon.jpg'), descricao: "Tenho 7 anos, sou um cachorro que gosta de bolinhas e ficar bricando o dia todo" },
+]
 
 export default function HomeScreen() {
   const {setLogin} = useAuth()
