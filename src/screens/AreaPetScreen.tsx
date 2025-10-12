@@ -42,26 +42,26 @@ export default function AreaPetScreen() {
         }, [])
     );
     const handleDeletePet = (petId: string, petName: string) => {
-        // Mostra um pop-up de confirmação
+    
         Alert.alert(
-            "Confirmar Exclusão", // Título do Alerta
-            `Tem certeza que deseja excluir o perfil de "${petName}"? Esta ação não pode ser desfeita.`, // Mensagem
+            "Confirmar Exclusão", 
+            `Tem certeza que deseja excluir o perfil de "${petName}"? Esta ação não pode ser desfeita.`, 
             [
-                // Botão 1: Cancelar
+                
                 {
                     text: "Cancelar",
                     onPress: () => console.log("Exclusão cancelada"),
                     style: "cancel"
                 },
-                // Botão 2: Excluir (executa a lógica)
+                
                 {
                     text: "Excluir",
                     onPress: async () => {
                         try {
-                            // Chama o use case para deletar
+                         
                             await deletePerfilPet.execute({ id: petId });
                             
-                            // Atualiza a lista na tela na hora, sem precisar recarregar
+                            
                             setPets(currentPets => currentPets.filter(pet => pet.id !== petId));
                             
                             Alert.alert("Sucesso!", `"${petName}" foi excluído.`);
@@ -70,7 +70,7 @@ export default function AreaPetScreen() {
                             Alert.alert("Erro", "Não foi possível excluir o pet.");
                         }
                     },
-                    style: "destructive" // Estilo vermelho no iOS para indicar perigo
+                    style: "destructive" 
                 }
             ]
         );
@@ -190,12 +190,12 @@ const styles = StyleSheet.create({
         fontFamily: 'Itim-Regular',
     },
         deleteButton: {
-        backgroundColor: '#E57373', // Uma cor vermelha para indicar perigo
+        backgroundColor: '#E57373',
         paddingVertical: 8,
         paddingHorizontal: 15,
         borderRadius: 5,
     },
-    buttonText: { // Renomeado de editButtonText para ser genérico
+    buttonText: { 
         color: '#392566',
         fontWeight: 'bold',
     },

@@ -74,9 +74,10 @@ export function LoginScreen({ navigation }: LoginTypes) {
 }
 
 const colors = {
-  background: '#EEE6FF',
-  primary: '#392566',
-  secundary: '#F4F3F3'
+    background: '#EEE6FF',
+    primary: '#392566',
+    secundary: '#F4F3F3',
+    grey: '#888', 
 };
  const styles = StyleSheet.create({
 
@@ -85,61 +86,63 @@ const colors = {
     height: 50, 
     borderRadius: 22.5, 
     marginRight: 12, 
+    marginTop:100,
   },
 
   headerText: {
     fontSize: 30, 
     fontFamily:'Itim-Regular', 
     color: '#392566', 
+    marginTop:100,
   },
   
   container: {
     flex: 1,
     alignItems: "center",
-    justifyContent: "center",
+  
     backgroundColor: colors.background,
   },
-
-  caixa:{
-
-    height:'80%',
-    width:'120%',
-    backgroundColor: colors.secundary,
-    borderRadius:50,
-    justifyContent:'center',
-    alignItems:'center',
-    paddingTop: '10%',
-  },
-
-  title: {
-    fontSize: 30,
-    fontFamily: "Itim-Regular",
-    textAlign: 'center',
-    color: colors.primary,
-    marginBottom: 20,
-  },
-
-  formRow: {
-    margin: 10,
-    flexDirection: "row",
-    alignItems: "center",
-    borderWidth: 2,
-    borderColor: '#d3cfcf',
-    borderRadius: 20,
-    width: '90%',
-    backgroundColor: '#D9D9D9',
-  },
-
-  icon: {
-    fontSize: 28,
-    color: colors.primary,
-    padding: 5
-  },
-
-  input: {
-    fontSize: 18,
-    padding: 10,
-    width: "70%",
     
-  },
+    caixa: {
+    
+        width: '90%', 
+        backgroundColor: colors.secundary,
+        borderRadius: 20, 
+        justifyContent: 'center',
+        alignItems: 'center',
+        elevation: 5,
+        paddingVertical: 30, 
+        paddingHorizontal: 15,
+        marginTop: 50,
+    },
+    title: {
+        fontSize: 30,
+        fontFamily: "Itim-Regular",
+        textAlign: 'center',
+        color: colors.primary,
+        marginBottom: 20,
+    },
+    formRow: {
+        marginBottom: 15, 
+        flexDirection: "row",
+        alignItems: "center",
+        borderWidth: 1, 
+        borderColor: '#d3cfcf',
+        borderRadius: 10,
+        width: '95%', 
+        backgroundColor: '#fff', 
+        paddingHorizontal: 10, 
+    },
+    icon: {
+        fontSize: 24, 
+        color: colors.primary,
+        marginRight: 10, 
+    },
+    input: {
+        
+        flex: 1, 
+        fontSize: 16,
+        height: 50,
+        color: colors.primary,
+    },
 })

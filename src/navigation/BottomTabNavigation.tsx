@@ -24,7 +24,7 @@ export default function BottomTabNavigation() {
         name="Home"
         component={HomeStack}
         options={{
-          tabBarLabel: 'Início', // Adicionei um label para clareza
+          tabBarLabel: 'Início', 
           tabBarIcon: ({ color, size }) => (
             <Ionicons name="home" size={size} color={color} />
           ),
@@ -32,9 +32,9 @@ export default function BottomTabNavigation() {
       />
       <Tab.Screen
         name="AreaPet"
-        component={AreaPetStack} // ✨ ALTERAR DE AreaPetScreen PARA AreaPetStack
+        component={AreaPetStack} 
         options={{
-          tabBarLabel: 'Meus Pets', // Adicionei um label para clareza
+          tabBarLabel: 'Meus Pets', 
           tabBarIcon: ({ color, size }) => (
             <Ionicons name="paw" size={size} color={color} />
           ),
