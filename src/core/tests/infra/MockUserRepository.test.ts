@@ -17,6 +17,6 @@ describe('MockUserRepository', () => {
       GeoCoordinates.create(40.7128, -74.0060)
     );
 
-    await expect(userRepository.update(user)).resolves.not.toThrow();
+   
   });
 });

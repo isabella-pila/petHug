@@ -3,6 +3,9 @@ import { RegisterUser } from '../../../../domain/use-cases/user/RegisterUser';
 import { MockUserRepository } from '../../../../infra/repositories/MockUserRepository';
 
 describe('LoginUser', () => {
+  beforeEach(() => {
+    MockUserRepository.getInstance().reset();
+  });
   it('should login a user', async () => {
     const userRepository = new MockUserRepository();
     const registerUser = new RegisterUser(userRepository);

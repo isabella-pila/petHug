@@ -1,27 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1760290764541" clover="3.2.0">
-  <project timestamp="1760290764541" name="All files">
-    <metrics statements="183" coveredstatements="174" conditionals="67" coveredconditionals="57" methods="85" coveredmethods="81" elements="335" coveredelements="312" complexity="0" loc="183" ncloc="183" packages="13" files="31" classes="31"/>
+<coverage generated="1760302095039" clover="3.2.0">
+  <project timestamp="1760302095039" name="All files">
+    <metrics statements="291" coveredstatements="259" conditionals="102" coveredconditionals="84" methods="110" coveredmethods="100" elements="503" coveredelements="443" complexity="0" loc="291" ncloc="291" packages="14" files="36" classes="36"/>
     <package name="assets">
       <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
       <file name="logo_adote.png" path="C:\Users\isabe\Documents\petHug\assets\logo_adote.png">
         <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
-        <line num="1" count="1" type="stmt"/>
+        <line num="1" count="2" type="stmt"/>
       </file>
     </package>
     <package name="src.components.ButtonInterface">
-      <metrics statements="6" coveredstatements="5" conditionals="3" coveredconditionals="1" methods="2" coveredmethods="1"/>
+      <metrics statements="6" coveredstatements="6" conditionals="3" coveredconditionals="3" methods="2" coveredmethods="2"/>
       <file name="index.tsx" path="C:\Users\isabe\Documents\petHug\src\components\ButtonInterface\index.tsx">
-        <metrics statements="4" coveredstatements="3" conditionals="3" coveredconditionals="1" methods="2" coveredmethods="1"/>
-        <line num="10" count="20" type="stmt"/>
-        <line num="27" count="1" type="stmt"/>
-        <line num="28" count="0" type="stmt"/>
-        <line num="31" count="1" type="stmt"/>
+        <metrics statements="4" coveredstatements="4" conditionals="3" coveredconditionals="3" methods="2" coveredmethods="2"/>
+        <line num="10" count="31" type="stmt"/>
+        <line num="27" count="3" type="stmt"/>
+        <line num="28" count="1" type="stmt"/>
+        <line num="31" count="3" type="stmt"/>
       </file>
       <file name="styles.ts" path="C:\Users\isabe\Documents\petHug\src\components\ButtonInterface\styles.ts">
         <metrics statements="2" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
-        <line num="3" count="1" type="stmt"/>
-        <line num="7" count="1" type="stmt"/>
+        <line num="3" count="3" type="stmt"/>
+        <line num="7" count="3" type="stmt"/>
+      </file>
+    </package>
+    <package name="src.components.Header">
+      <metrics statements="2" coveredstatements="2" conditionals="2" coveredconditionals="2" methods="1" coveredmethods="1"/>
+      <file name="CustomHeader.tsx" path="C:\Users\isabe\Documents\petHug\src\components\Header\CustomHeader.tsx">
+        <metrics statements="2" coveredstatements="2" conditionals="2" coveredconditionals="2" methods="1" coveredmethods="1"/>
+        <line num="6" count="16" type="stmt"/>
+        <line num="16" count="1" type="stmt"/>
       </file>
     </package>
     <package name="src.components.Loading">
@@ -35,41 +43,41 @@
       <metrics statements="17" coveredstatements="14" conditionals="2" coveredconditionals="1" methods="3" coveredmethods="3"/>
       <file name="auth.tsx" path="C:\Users\isabe\Documents\petHug\src\context\auth.tsx">
         <metrics statements="17" coveredstatements="14" conditionals="2" coveredconditionals="1" methods="3" coveredmethods="3"/>
-        <line num="16" count="1" type="stmt"/>
-        <line num="18" count="1" type="stmt"/>
-        <line num="19" count="2" type="stmt"/>
-        <line num="20" count="2" type="stmt"/>
-        <line num="21" count="2" type="stmt"/>
-        <line num="23" count="2" type="stmt"/>
+        <line num="16" count="2" type="stmt"/>
+        <line num="18" count="2" type="stmt"/>
+        <line num="19" count="4" type="stmt"/>
+        <line num="20" count="4" type="stmt"/>
+        <line num="21" count="4" type="stmt"/>
+        <line num="23" count="4" type="stmt"/>
         <line num="24" count="1" type="stmt"/>
         <line num="25" count="1" type="stmt"/>
         <line num="26" count="1" type="stmt"/>
         <line num="27" count="1" type="stmt"/>
         <line num="29" count="0" type="stmt"/>
         <line num="31" count="0" type="stmt"/>
-        <line num="35" count="2" type="stmt"/>
-        <line num="43" count="7" type="stmt"/>
-        <line num="44" count="7" type="cond" truecount="1" falsecount="1"/>
+        <line num="35" count="4" type="stmt"/>
+        <line num="43" count="8" type="stmt"/>
+        <line num="44" count="8" type="cond" truecount="1" falsecount="1"/>
         <line num="45" count="0" type="stmt"/>
-        <line num="47" count="7" type="stmt"/>
+        <line num="47" count="8" type="stmt"/>
       </file>
     </package>
     <package name="src.core">
       <metrics statements="3" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
       <file name="generate-id.ts" path="C:\Users\isabe\Documents\petHug\src\core\generate-id.ts">
         <metrics statements="3" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
-        <line num="3" count="13" type="stmt"/>
-        <line num="4" count="13" type="stmt"/>
-        <line num="6" count="13" type="stmt"/>
+        <line num="3" count="14" type="stmt"/>
+        <line num="4" count="14" type="stmt"/>
+        <line num="6" count="14" type="stmt"/>
       </file>
     </package>
     <package name="src.core.domain.entities">
       <metrics statements="4" coveredstatements="4" conditionals="0" coveredconditionals="0" methods="5" coveredmethods="5"/>
       <file name="PetPerfil.ts" path="C:\Users\isabe\Documents\petHug\src\core\domain\entities\PetPerfil.ts">
         <metrics statements="3" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="3" coveredmethods="3"/>
-        <line num="24" count="13" type="stmt"/>
-        <line num="25" count="13" type="stmt"/>
-        <line num="36" count="3" type="stmt"/>
+        <line num="24" count="14" type="stmt"/>
+        <line num="25" count="14" type="stmt"/>
+        <line num="36" count="4" type="stmt"/>
       </file>
       <file name="User.ts" path="C:\Users\isabe\Documents\petHug\src\core\domain\entities\User.ts">
         <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="2"/>
@@ -77,14 +85,14 @@
       </file>
     </package>
     <package name="src.core.domain.use-cases.petPerfil">
-      <metrics statements="30" coveredstatements="30" conditionals="14" coveredconditionals="12" methods="13" coveredmethods="13"/>
+      <metrics statements="30" coveredstatements="30" conditionals="14" coveredconditionals="14" methods="13" coveredmethods="13"/>
       <file name="DeletePet.ts" path="C:\Users\isabe\Documents\petHug\src\core\domain\use-cases\petPerfil\DeletePet.ts">
         <metrics statements="5" coveredstatements="5" conditionals="2" coveredconditionals="2" methods="2" coveredmethods="2"/>
-        <line num="7" count="2" type="stmt"/>
-        <line num="9" count="2" type="stmt"/>
-        <line num="11" count="2" type="cond" truecount="2" falsecount="0"/>
+        <line num="7" count="3" type="stmt"/>
+        <line num="9" count="3" type="stmt"/>
+        <line num="11" count="3" type="cond" truecount="2" falsecount="0"/>
         <line num="12" count="1" type="stmt"/>
-        <line num="15" count="1" type="stmt"/>
+        <line num="15" count="2" type="stmt"/>
       </file>
       <file name="FindAllPets.ts" path="C:\Users\isabe\Documents\petHug\src\core\domain\use-cases\petPerfil\FindAllPets.ts">
         <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="2"/>
@@ -92,39 +100,39 @@
       </file>
       <file name="FindPet.ts" path="C:\Users\isabe\Documents\petHug\src\core\domain\use-cases\petPerfil\FindPet.ts">
         <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="2"/>
-        <line num="8" count="2" type="stmt"/>
+        <line num="8" count="3" type="stmt"/>
       </file>
       <file name="FindPetsByDonoId.ts" path="C:\Users\isabe\Documents\petHug\src\core\domain\use-cases\petPerfil\FindPetsByDonoId.ts">
         <metrics statements="3" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="2"/>
-        <line num="14" count="3" type="stmt"/>
-        <line num="17" count="3" type="stmt"/>
-        <line num="19" count="3" type="stmt"/>
+        <line num="14" count="6" type="stmt"/>
+        <line num="17" count="6" type="stmt"/>
+        <line num="19" count="6" type="stmt"/>
       </file>
       <file name="RegisterPet.ts" path="C:\Users\isabe\Documents\petHug\src\core\domain\use-cases\petPerfil\RegisterPet.ts">
         <metrics statements="9" coveredstatements="9" conditionals="2" coveredconditionals="2" methods="3" coveredmethods="3"/>
         <line num="11" count="1" type="stmt"/>
         <line num="12" count="1" type="stmt"/>
-        <line num="32" count="12" type="stmt"/>
-        <line num="33" count="12" type="cond" truecount="2" falsecount="0"/>
+        <line num="32" count="13" type="stmt"/>
+        <line num="33" count="13" type="cond" truecount="2" falsecount="0"/>
         <line num="35" count="1" type="stmt"/>
-        <line num="38" count="11" type="stmt"/>
-        <line num="40" count="11" type="stmt"/>
-        <line num="50" count="11" type="stmt"/>
-        <line num="52" count="11" type="stmt"/>
+        <line num="38" count="12" type="stmt"/>
+        <line num="40" count="12" type="stmt"/>
+        <line num="50" count="12" type="stmt"/>
+        <line num="52" count="12" type="stmt"/>
       </file>
       <file name="UpadatePet.ts" path="C:\Users\isabe\Documents\petHug\src\core\domain\use-cases\petPerfil\UpadatePet.ts">
-        <metrics statements="11" coveredstatements="11" conditionals="10" coveredconditionals="8" methods="2" coveredmethods="2"/>
-        <line num="16" count="4" type="stmt"/>
-        <line num="18" count="4" type="stmt"/>
-        <line num="20" count="4" type="cond" truecount="2" falsecount="0"/>
+        <metrics statements="11" coveredstatements="11" conditionals="10" coveredconditionals="10" methods="2" coveredmethods="2"/>
+        <line num="16" count="5" type="stmt"/>
+        <line num="18" count="5" type="stmt"/>
+        <line num="20" count="5" type="cond" truecount="2" falsecount="0"/>
         <line num="21" count="1" type="stmt"/>
-        <line num="24" count="3" type="cond" truecount="1" falsecount="1"/>
-        <line num="25" count="3" type="cond" truecount="1" falsecount="1"/>
-        <line num="26" count="3" type="cond" truecount="2" falsecount="0"/>
-        <line num="27" count="3" type="cond" truecount="2" falsecount="0"/>
-        <line num="30" count="3" type="stmt"/>
-        <line num="39" count="3" type="stmt"/>
-        <line num="41" count="3" type="stmt"/>
+        <line num="24" count="4" type="cond" truecount="2" falsecount="0"/>
+        <line num="25" count="4" type="cond" truecount="2" falsecount="0"/>
+        <line num="26" count="4" type="cond" truecount="2" falsecount="0"/>
+        <line num="27" count="4" type="cond" truecount="2" falsecount="0"/>
+        <line num="30" count="4" type="stmt"/>
+        <line num="39" count="4" type="stmt"/>
+        <line num="41" count="4" type="stmt"/>
       </file>
     </package>
     <package name="src.core.domain.use-cases.user">
@@ -166,41 +174,41 @@
       <metrics statements="24" coveredstatements="24" conditionals="14" coveredconditionals="14" methods="15" coveredmethods="15"/>
       <file name="Email.ts" path="C:\Users\isabe\Documents\petHug\src\core\domain\value-objects\Email.ts">
         <metrics statements="5" coveredstatements="5" conditionals="2" coveredconditionals="2" methods="3" coveredmethods="3"/>
-        <line num="5" count="39" type="cond" truecount="2" falsecount="0"/>
+        <line num="5" count="41" type="cond" truecount="2" falsecount="0"/>
         <line num="6" count="1" type="stmt"/>
-        <line num="8" count="38" type="stmt"/>
-        <line num="12" count="39" type="stmt"/>
-        <line num="13" count="39" type="stmt"/>
+        <line num="8" count="40" type="stmt"/>
+        <line num="12" count="41" type="stmt"/>
+        <line num="13" count="41" type="stmt"/>
       </file>
       <file name="GeoCoordinates.ts" path="C:\Users\isabe\Documents\petHug\src\core\domain\value-objects\GeoCoordinates.ts">
         <metrics statements="4" coveredstatements="4" conditionals="6" coveredconditionals="6" methods="3" coveredmethods="3"/>
-        <line num="5" count="40" type="cond" truecount="2" falsecount="0"/>
+        <line num="5" count="42" type="cond" truecount="2" falsecount="0"/>
         <line num="6" count="2" type="stmt"/>
-        <line num="8" count="38" type="stmt"/>
-        <line num="12" count="40" type="cond" truecount="4" falsecount="0"/>
+        <line num="8" count="40" type="stmt"/>
+        <line num="12" count="42" type="cond" truecount="4" falsecount="0"/>
       </file>
       <file name="Name.ts" path="C:\Users\isabe\Documents\petHug\src\core\domain\value-objects\Name.ts">
         <metrics statements="4" coveredstatements="4" conditionals="2" coveredconditionals="2" methods="3" coveredmethods="3"/>
-        <line num="5" count="52" type="cond" truecount="2" falsecount="0"/>
+        <line num="5" count="56" type="cond" truecount="2" falsecount="0"/>
         <line num="6" count="1" type="stmt"/>
-        <line num="8" count="51" type="stmt"/>
-        <line num="12" count="52" type="stmt"/>
+        <line num="8" count="55" type="stmt"/>
+        <line num="12" count="56" type="stmt"/>
       </file>
       <file name="Password.ts" path="C:\Users\isabe\Documents\petHug\src\core\domain\value-objects\Password.ts">
         <metrics statements="4" coveredstatements="4" conditionals="2" coveredconditionals="2" methods="3" coveredmethods="3"/>
-        <line num="5" count="39" type="cond" truecount="2" falsecount="0"/>
+        <line num="5" count="41" type="cond" truecount="2" falsecount="0"/>
         <line num="6" count="1" type="stmt"/>
-        <line num="8" count="38" type="stmt"/>
-        <line num="12" count="39" type="stmt"/>
+        <line num="8" count="40" type="stmt"/>
+        <line num="12" count="41" type="stmt"/>
       </file>
       <file name="Photo.ts" path="C:\Users\isabe\Documents\petHug\src\core\domain\value-objects\Photo.ts">
         <metrics statements="7" coveredstatements="7" conditionals="2" coveredconditionals="2" methods="3" coveredmethods="3"/>
-        <line num="5" count="15" type="cond" truecount="2" falsecount="0"/>
+        <line num="5" count="17" type="cond" truecount="2" falsecount="0"/>
         <line num="6" count="1" type="stmt"/>
-        <line num="8" count="14" type="stmt"/>
-        <line num="12" count="15" type="stmt"/>
-        <line num="13" count="15" type="stmt"/>
-        <line num="14" count="14" type="stmt"/>
+        <line num="8" count="16" type="stmt"/>
+        <line num="12" count="17" type="stmt"/>
+        <line num="13" count="17" type="stmt"/>
+        <line num="14" count="16" type="stmt"/>
         <line num="16" count="1" type="stmt"/>
       </file>
     </package>
@@ -208,62 +216,67 @@
       <metrics statements="15" coveredstatements="15" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="2"/>
       <file name="MakePetPerfilRepository.ts" path="C:\Users\isabe\Documents\petHug\src\core\factories\MakePetPerfilRepository.ts">
         <metrics statements="9" coveredstatements="9" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
-        <line num="17" count="1" type="stmt"/>
-        <line num="18" count="1" type="stmt"/>
-        <line num="20" count="1" type="stmt"/>
-        <line num="24" count="1" type="stmt"/>
-        <line num="25" count="1" type="stmt"/>
-        <line num="26" count="1" type="stmt"/>
-        <line num="27" count="1" type="stmt"/>
-        <line num="28" count="1" type="stmt"/>
-        <line num="30" count="1" type="stmt"/>
+        <line num="17" count="18" type="stmt"/>
+        <line num="18" count="18" type="stmt"/>
+        <line num="20" count="18" type="stmt"/>
+        <line num="24" count="18" type="stmt"/>
+        <line num="25" count="18" type="stmt"/>
+        <line num="26" count="18" type="stmt"/>
+        <line num="27" count="18" type="stmt"/>
+        <line num="28" count="18" type="stmt"/>
+        <line num="30" count="18" type="stmt"/>
       </file>
       <file name="MakeUserRepository.ts" path="C:\Users\isabe\Documents\petHug\src\core\factories\MakeUserRepository.ts">
         <metrics statements="6" coveredstatements="6" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
-        <line num="9" count="9" type="stmt"/>
-        <line num="11" count="9" type="stmt"/>
-        <line num="12" count="9" type="stmt"/>
-        <line num="13" count="9" type="stmt"/>
-        <line num="14" count="9" type="stmt"/>
-        <line num="16" count="9" type="stmt"/>
+        <line num="9" count="11" type="stmt"/>
+        <line num="11" count="11" type="stmt"/>
+        <line num="12" count="11" type="stmt"/>
+        <line num="13" count="11" type="stmt"/>
+        <line num="14" count="11" type="stmt"/>
+        <line num="16" count="11" type="stmt"/>
       </file>
     </package>
     <package name="src.core.infra.repositories">
-      <metrics statements="25" coveredstatements="23" conditionals="14" coveredconditionals="13" methods="25" coveredmethods="23"/>
+      <metrics statements="25" coveredstatements="21" conditionals="14" coveredconditionals="12" methods="25" coveredmethods="21"/>
       <file name="MockPetPerfilRepository.ts" path="C:\Users\isabe\Documents\petHug\src\core\infra\repositories\MockPetPerfilRepository.ts">
         <metrics statements="13" coveredstatements="13" conditionals="6" coveredconditionals="6" methods="13" coveredmethods="13"/>
-        <line num="8" count="8" type="stmt"/>
-        <line num="14" count="17" type="cond" truecount="2" falsecount="0"/>
-        <line num="15" count="8" type="stmt"/>
-        <line num="17" count="17" type="stmt"/>
+        <line num="8" count="9" type="stmt"/>
+        <line num="14" count="35" type="cond" truecount="2" falsecount="0"/>
+        <line num="15" count="9" type="stmt"/>
+        <line num="17" count="35" type="stmt"/>
         <line num="23" count="2" type="stmt"/>
-        <line num="27" count="11" type="stmt"/>
-        <line num="31" count="11" type="cond" truecount="2" falsecount="0"/>
-        <line num="35" count="3" type="stmt"/>
-        <line num="39" count="4" type="stmt"/>
-        <line num="40" count="4" type="cond" truecount="2" falsecount="0"/>
-        <line num="41" count="3" type="stmt"/>
-        <line num="46" count="1" type="stmt"/>
-        <line num="51" count="13" type="stmt"/>
+        <line num="27" count="12" type="stmt"/>
+        <line num="31" count="14" type="cond" truecount="2" falsecount="0"/>
+        <line num="35" count="6" type="stmt"/>
+        <line num="39" count="5" type="stmt"/>
+        <line num="40" count="5" type="cond" truecount="2" falsecount="0"/>
+        <line num="41" count="4" type="stmt"/>
+        <line num="46" count="2" type="stmt"/>
+        <line num="51" count="14" type="stmt"/>
       </file>
       <file name="MockUserRepository.ts" path="C:\Users\isabe\Documents\petHug\src\core\infra\repositories\MockUserRepository.ts">
-        <metrics statements="12" coveredstatements="10" conditionals="8" coveredconditionals="7" methods="12" coveredmethods="10"/>
-        <line num="10" count="15" type="stmt"/>
-        <line num="21" count="35" type="cond" truecount="2" falsecount="0"/>
-        <line num="22" count="12" type="stmt"/>
-        <line num="24" count="35" type="stmt"/>
+        <metrics statements="12" coveredstatements="8" conditionals="8" coveredconditionals="6" methods="12" coveredmethods="8"/>
+        <line num="10" count="17" type="stmt"/>
+        <line num="21" count="58" type="cond" truecount="2" falsecount="0"/>
+        <line num="22" count="14" type="stmt"/>
+        <line num="24" count="58" type="stmt"/>
         <line num="28" count="20" type="stmt"/>
         <line num="32" count="12" type="cond" truecount="2" falsecount="0"/>
-        <line num="36" count="15" type="cond" truecount="2" falsecount="0"/>
-        <line num="40" count="1" type="stmt"/>
-        <line num="41" count="1" type="cond" truecount="1" falsecount="1"/>
+        <line num="36" count="16" type="cond" truecount="2" falsecount="0"/>
+        <line num="40" count="0" type="stmt"/>
+        <line num="41" count="0" type="cond" truecount="0" falsecount="2"/>
         <line num="42" count="0" type="stmt"/>
         <line num="47" count="0" type="stmt"/>
-        <line num="51" count="18" type="stmt"/>
+        <line num="51" count="22" type="stmt"/>
       </file>
     </package>
     <package name="src.navigation">
-      <metrics statements="4" coveredstatements="4" conditionals="2" coveredconditionals="2" methods="2" coveredmethods="2"/>
+      <metrics statements="6" coveredstatements="6" conditionals="2" coveredconditionals="2" methods="3" coveredmethods="3"/>
+      <file name="AreaPetStack.tsx" path="C:\Users\isabe\Documents\petHug\src\navigation\AreaPetStack.tsx">
+        <metrics statements="2" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
+        <line num="17" count="1" type="stmt"/>
+        <line num="20" count="1" type="stmt"/>
+      </file>
       <file name="LoginstackNavigation.tsx" path="C:\Users\isabe\Documents\petHug\src\navigation\LoginstackNavigation.tsx">
         <metrics statements="2" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
         <line num="6" count="1" type="stmt"/>
@@ -276,7 +289,120 @@
       </file>
     </package>
     <package name="src.screens">
-      <metrics statements="33" coveredstatements="30" conditionals="12" coveredconditionals="8" methods="6" coveredmethods="5"/>
+      <metrics statements="137" coveredstatements="112" conditionals="45" coveredconditionals="30" methods="29" coveredmethods="23"/>
+      <file name="AreaPetScreen.tsx" path="C:\Users\isabe\Documents\petHug\src\screens\AreaPetScreen.tsx">
+        <metrics statements="32" coveredstatements="27" conditionals="6" coveredconditionals="5" methods="13" coveredmethods="12"/>
+        <line num="16" count="8" type="stmt"/>
+        <line num="19" count="8" type="stmt"/>
+        <line num="20" count="8" type="stmt"/>
+        <line num="21" count="8" type="stmt"/>
+        <line num="22" count="8" type="stmt"/>
+        <line num="24" count="8" type="stmt"/>
+        <line num="26" count="3" type="stmt"/>
+        <line num="27" count="3" type="stmt"/>
+        <line num="28" count="3" type="stmt"/>
+        <line num="29" count="3" type="stmt"/>
+        <line num="31" count="3" type="stmt"/>
+        <line num="32" count="3" type="stmt"/>
+        <line num="34" count="0" type="stmt"/>
+        <line num="35" count="0" type="stmt"/>
+        <line num="37" count="3" type="stmt"/>
+        <line num="41" count="3" type="stmt"/>
+        <line num="44" count="8" type="stmt"/>
+        <line num="46" count="1" type="stmt"/>
+        <line num="53" count="0" type="stmt"/>
+        <line num="60" count="1" type="stmt"/>
+        <line num="62" count="1" type="stmt"/>
+        <line num="65" count="1" type="stmt"/>
+        <line num="67" count="1" type="stmt"/>
+        <line num="69" count="0" type="stmt"/>
+        <line num="70" count="0" type="stmt"/>
+        <line num="82" count="8" type="stmt"/>
+        <line num="86" count="1" type="stmt"/>
+        <line num="101" count="4" type="stmt"/>
+        <line num="103" count="2" type="stmt"/>
+        <line num="108" count="1" type="stmt"/>
+        <line num="115" count="1" type="stmt"/>
+        <line num="128" count="1" type="stmt"/>
+      </file>
+      <file name="CadastrarPetScreen.tsx" path="C:\Users\isabe\Documents\petHug\src\screens\CadastrarPetScreen.tsx">
+        <metrics statements="27" coveredstatements="20" conditionals="13" coveredconditionals="8" methods="4" coveredmethods="2"/>
+        <line num="11" count="5" type="stmt"/>
+        <line num="12" count="5" type="stmt"/>
+        <line num="14" count="5" type="stmt"/>
+        <line num="15" count="5" type="stmt"/>
+        <line num="16" count="5" type="stmt"/>
+        <line num="17" count="5" type="stmt"/>
+        <line num="18" count="5" type="stmt"/>
+        <line num="19" count="5" type="stmt"/>
+        <line num="21" count="5" type="stmt"/>
+        <line num="22" count="1" type="cond" truecount="4" falsecount="1"/>
+        <line num="23" count="0" type="stmt"/>
+        <line num="24" count="0" type="stmt"/>
+        <line num="26" count="1" type="stmt"/>
+        <line num="27" count="1" type="stmt"/>
+        <line num="28" count="1" type="stmt"/>
+        <line num="29" count="1" type="stmt"/>
+        <line num="36" count="1" type="stmt"/>
+        <line num="37" count="1" type="stmt"/>
+        <line num="39" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="40" count="0" type="stmt"/>
+        <line num="41" count="0" type="stmt"/>
+        <line num="43" count="1" type="stmt"/>
+        <line num="47" count="5" type="stmt"/>
+        <line num="94" count="0" type="stmt"/>
+        <line num="116" count="0" type="stmt"/>
+        <line num="126" count="1" type="stmt"/>
+        <line num="132" count="1" type="stmt"/>
+      </file>
+      <file name="EditarPet.tsx" path="C:\Users\isabe\Documents\petHug\src\screens\EditarPet.tsx">
+        <metrics statements="45" coveredstatements="35" conditionals="14" coveredconditionals="9" methods="6" coveredmethods="4"/>
+        <line num="14" count="4" type="stmt"/>
+        <line num="15" count="4" type="stmt"/>
+        <line num="16" count="4" type="stmt"/>
+        <line num="18" count="4" type="stmt"/>
+        <line num="20" count="4" type="stmt"/>
+        <line num="21" count="4" type="stmt"/>
+        <line num="23" count="4" type="stmt"/>
+        <line num="24" count="4" type="stmt"/>
+        <line num="25" count="4" type="stmt"/>
+        <line num="26" count="4" type="stmt"/>
+        <line num="28" count="4" type="stmt"/>
+        <line num="29" count="1" type="stmt"/>
+        <line num="30" count="1" type="stmt"/>
+        <line num="31" count="1" type="stmt"/>
+        <line num="32" count="1" type="stmt"/>
+        <line num="33" count="1" type="cond" truecount="1" falsecount="1"/>
+        <line num="34" count="1" type="stmt"/>
+        <line num="35" count="1" type="stmt"/>
+        <line num="36" count="1" type="stmt"/>
+        <line num="37" count="1" type="stmt"/>
+        <line num="39" count="0" type="stmt"/>
+        <line num="40" count="0" type="stmt"/>
+        <line num="43" count="0" type="stmt"/>
+        <line num="44" count="0" type="stmt"/>
+        <line num="46" count="1" type="stmt"/>
+        <line num="49" count="1" type="stmt"/>
+        <line num="52" count="4" type="stmt"/>
+        <line num="53" count="1" type="stmt"/>
+        <line num="54" count="1" type="stmt"/>
+        <line num="55" count="1" type="stmt"/>
+        <line num="56" count="1" type="stmt"/>
+        <line num="63" count="1" type="stmt"/>
+        <line num="64" count="1" type="stmt"/>
+        <line num="66" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="67" count="0" type="stmt"/>
+        <line num="68" count="0" type="stmt"/>
+        <line num="69" count="0" type="stmt"/>
+        <line num="71" count="1" type="stmt"/>
+        <line num="75" count="4" type="cond" truecount="4" falsecount="0"/>
+        <line num="76" count="1" type="stmt"/>
+        <line num="83" count="3" type="stmt"/>
+        <line num="113" count="0" type="stmt"/>
+        <line num="135" count="0" type="stmt"/>
+        <line num="145" count="1" type="stmt"/>
+        <line num="151" count="1" type="stmt"/>
+      </file>
       <file name="Login.tsx" path="C:\Users\isabe\Documents\petHug\src\screens\Login.tsx">
         <metrics statements="15" coveredstatements="14" conditionals="6" coveredconditionals="4" methods="3" coveredmethods="3"/>
         <line num="12" count="5" type="stmt"/>
@@ -293,7 +419,7 @@
         <line num="30" count="5" type="stmt"/>
         <line num="69" count="1" type="stmt"/>
         <line num="76" count="1" type="stmt"/>
-        <line num="81" count="1" type="stmt"/>
+        <line num="82" count="1" type="stmt"/>
       </file>
       <file name="Register.tsx" path="C:\Users\isabe\Documents\petHug\src\screens\Register.tsx">
         <metrics statements="18" coveredstatements="16" conditionals="6" coveredconditionals="4" methods="3" coveredmethods="2"/>
@@ -314,7 +440,7 @@
         <line num="39" count="6" type="stmt"/>
         <line num="88" count="0" type="stmt"/>
         <line num="95" count="1" type="stmt"/>
-        <line num="100" count="1" type="stmt"/>
+        <line num="101" count="1" type="stmt"/>
       </file>
     </package>
   </project>

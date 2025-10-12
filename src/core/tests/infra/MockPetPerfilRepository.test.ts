@@ -8,7 +8,7 @@ describe('MockPetPerfilRepository', () => {
   it('should not throw when updating a non-existent vinyl record', async () => {
     const petPerfilRepository: IPetPerfilRepository =MockPetPerfilRepository.getInstance();
     const petPerfil = PetPerfil.create(
-      '1',
+     
       Name.create('Symon'),
       Photo.create('https://example.com/abbey-road.jpg'),
       'Descricao do pet',

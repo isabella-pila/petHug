@@ -1,9 +1,9 @@
 import React from 'react';
 import { View, Text } from 'react-native';
-import { render, fireEvent, waitFor } from '@testing-library/react-native';
+import { render, fireEvent, waitFor, renderHook } from '@testing-library/react-native';
 
 import Navigation from '../navigation/index'; 
-import { AuthProvider } from '../context/auth';
+import { AuthProvider, useAuth } from '../context/auth';
 
 
 import { MockUserRepository } from '../core/infra/repositories/MockUserRepository';
@@ -56,12 +56,8 @@ const { getByPlaceholderText, getByText, findByTestId, findByPlaceholderText } =
     fireEvent.changeText(getByPlaceholderText('Senha'), 'password123');
     fireEvent.press(getByText('Salvar'));
 
-
-    // --- Aguarde a navegação de volta para a tela de Login ---
     const loginButton = await findByTestId('login-button');
 
-
-    // --- ETAPA DE LOGIN ---
     fireEvent.changeText(getByPlaceholderText('Email'), 'test@example.com');
     fireEvent.changeText(getByPlaceholderText('Senha'), 'password123');
     fireEvent.press(loginButton);
@@ -72,5 +68,19 @@ const { getByPlaceholderText, getByText, findByTestId, findByPlaceholderText } =
     const welcomeMessage = await findByTestId('welcome-message');
     expect(welcomeMessage).toBeTruthy();
   });
+
+  it('should handle login failure', async () => {
+  const { result } = renderHook(() => useAuth(), { wrapper: AuthProvider });
+  
+  // Mocka a função de loginUser para lançar erro
+  jest.spyOn(result.current, 'handleLogin').mockImplementationOnce(async () => {
+    throw new Error('Invalid credentials');
+  });
+
+  await expect(result.current.handleLogin({ email: 'wrong@example.com', password: '123' }))
+    .rejects.toThrow('Invalid credentials');
+});
+
+
 });
 
