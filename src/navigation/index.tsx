@@ -6,7 +6,7 @@ import { useAuth } from '../context/auth';
 
 export default function Navigation() {
 
-   const {login} = useAuth()
+  const {login} = useAuth()
   return (
     <NavigationContainer>
        {login ? <AppStackRoutes /> : <StackLoginNavigation />} 

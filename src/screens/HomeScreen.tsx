@@ -1,57 +1,98 @@
-import React, { useState, useMemo } from 'react';
-import { View, StyleSheet, FlatList, Text } from "react-native";
+import React, { useState, useMemo, useCallback } from 'react';
+import { View, StyleSheet, FlatList, Text, ActivityIndicator } from "react-native";
+import { useFocusEffect } from '@react-navigation/native';
 import { HighLight } from "../components/HighLight";
-import { CategoryFilter } from '../components/category/CategoryFilter'; 
+import { CategoryFilter } from '../components/category/CategoryFilter';
 import CustomHeader from '../components/Header/CustomHeader';
-import { useAuth } from "../context/auth";
+import { makePetPerfilUseCases } from '../core/factories/MakePetPerfilRepository';
+import { PetPerfil } from '../core/domain/entities/PetPerfil';
+
 const colors = {
   background: '#EEE6FF',
   primary: '#392566',
 };
 
-const PETS_DATA = [
-  { id: '1', title: 'Chica', category: 'cachorro', image: require('../../assets/chica.jpg'), descricao: "Tenho 3 anos, sou porte pequeno e adoro brincar, correr e pular. Sou uma cadelinha com muita energia que precisa de espaço para brincar." },
-    { id: '2', title: 'Lila', category: 'cachorro', image: require('../../assets/Lila.jpg'), descricao: "Tenho 6 anos, sou porte pequeno uma idosa que so dorme, e muito carinhosa." },
-      { id: '3', title: 'Nala', category: 'cachorro', image: require('../../assets/nala.jpg'), descricao: "Tenho 1 aninho. Sou uma filhotona que adora carinho e brincar de buscar a bolinha. Sou da raça Dachshund de porte pequeno." },
-        { id: '4', title: 'Juju', category: 'outros', image: require('../../assets/juju.jpg'), descricao: "Tenho 3 anos, sou uma galinha gigante e gorda so penso em comer o dia todo, sou bem mansa" },
-          { id: '5', title: 'Lilith', category: 'gato', image: require('../../assets/lilith.jpg'), descricao: "Tenho 4 anos, sou uma gatinha muito fofinha e gosto de carinhos" },
-            { id: '6', title: 'Symon', category: 'cachorro', image: require('../../assets/symon.jpg'), descricao: "Tenho 7 anos, sou um cachorro que gosta de bolinhas e ficar bricando o dia todo" },
-]
+
 
 export default function HomeScreen() {
-  const {setLogin} = useAuth()
 
+  const [pets, setPets] = useState<PetPerfil[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
   const [selectedCategory, setSelectedCategory] = useState('todos');
 
+
+  const { findAllPets } = makePetPerfilUseCases();
+
+  useFocusEffect(
+    useCallback(() => {
+      const carregarTodosOsPets = async () => {
+        setLoading(true);
+        setError(null);
+        try {
+          const todosOsPets = await findAllPets.execute();
+          setPets(todosOsPets);
+        } catch (err) {
+          setError('Não foi possível carregar os pets.');
+          console.error(err);
+        } finally {
+          setLoading(false);
+        }
+      };
+
+      carregarTodosOsPets();
+    }, [])
+  );
   const filteredData = useMemo(() => {
     if (selectedCategory === 'todos') {
-      return PETS_DATA; 
+      return pets;
     }
-    return PETS_DATA.filter(pet => pet.category === selectedCategory);
-  }, [selectedCategory]); 
+  
+    return pets.filter(pet => pet.category === selectedCategory);
+  }, [selectedCategory, pets]);
+
+
+  if (loading) {
+    return (
+      <View style={[styles.container, styles.center]}>
+        <ActivityIndicator size="large" color={colors.primary} />
+      </View>
+    );
+  }
+
+  if (error) {
+    return (
+      <View style={[styles.container, styles.center]}>
+        <Text style={styles.emptyText}>{error}</Text>
+      </View>
+    );
+  }
 
   return (
     <View style={styles.container}>
       <CustomHeader />
-       <View style={{ alignItems:'center', marginTop:10}}>
-      <Text style={styles.textoAdocao}>Filtre pela sua preferência pet</Text>
+      <View style={{ alignItems: 'center', marginTop: 10 }}>
+        <Text style={styles.textoAdocao}>Filtre pela sua preferência pet</Text>
       </View>
 
-      <CategoryFilter 
+      <CategoryFilter
         selectedCategory={selectedCategory}
         onSelectCategory={setSelectedCategory}
       />
-      <View style={{ alignItems:'center', marginTop:10}}>
-      <Text style={styles.textoAdocao}>Animais disponíveis para adoção:</Text>
+      <View style={{ alignItems: 'center', marginTop: 10 }}>
+        <Text style={styles.textoAdocao}>Animais disponíveis para adoção:</Text>
       </View>
       <FlatList
         data={filteredData}
         renderItem={({ item }) => (
+          
           <HighLight
             id={item.id}
-            title={item.title}
-            image={item.image}
-            category={item.category}
+            title={item.name.value}
+            
+            image={{ uri: item.foto.url }}
+        
+            category={item.category || 'cachorro'}
             descricao={item.descricao}
           />
         )}
@@ -72,32 +113,32 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: colors.background,
-
-  
+  },
+  center: {
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   gridContainer: {
-    marginLeft:15,
+    marginLeft: 15,
     marginTop: 10,
     alignItems: 'flex-start',
     justifyContent: 'center',
     paddingHorizontal: 5,
   },
-  textoAdocao:{
-    fontSize:23,
-    fontFamily:'Itim-Regular',
-    color:colors.primary,
-  
-
+  textoAdocao: {
+    fontSize: 23,
+    fontFamily: 'Itim-Regular',
+    color: colors.primary,
   },
-
   emptyContainer: {
     flex: 1,
+    width: '100%', // Garante que o container ocupe a largura
     marginTop: 50,
     alignItems: 'center',
   },
   emptyText: {
     fontSize: 16,
-    fontFamily:'Itim-Regular',
+    fontFamily: 'Itim-Regular',
     color: colors.primary,
   },
 });

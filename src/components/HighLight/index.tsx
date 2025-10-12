@@ -2,7 +2,8 @@
 
 import React from "react";
 import {
-  StyleSheet,  Text,  View,  TouchableOpacity,  Image, Dimensions,} from "react-native";
+  StyleSheet,  Text,  View,  TouchableOpacity,  Image, Dimensions,
+  ImageSourcePropType,} from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { RootStackParamList } from "../../navigation/stack.routes";
@@ -18,7 +19,7 @@ const { width } = Dimensions.get("window");
 type HighLightProps = {
   id: string;
   title: string;
-  image: string | number;
+  image: ImageSourcePropType;
   category?: string;
   descricao: string
 };

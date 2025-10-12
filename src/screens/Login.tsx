@@ -1,59 +1,83 @@
-import React from 'react';
-import { KeyboardAvoidingView, View, Text, TextInput, Platform, Image } from 'react-native';
+import React, { useState } from 'react';
+import { KeyboardAvoidingView, View, Text, TextInput, Platform, Alert, Image } from 'react-native';
 
 import { MaterialIcons, Entypo } from "@expo/vector-icons";
 import { StyleSheet } from 'react-native';
+import { ButtonInterface } from '../components/ButtonInterface';
+import { Loading } from '../components/Loading';
 import { LoginTypes } from '../navigation/LoginstackNavigation';
 import { useAuth } from '../context/auth';
-import { ButtonInterface } from '../components/ButtonInterface/index';
-
-const colors = {
-  background: '#EEE6FF',
-  primary: '#392566',
-  secondary: "#F4F3F3"
-};
 
 export function LoginScreen({ navigation }: LoginTypes) {
-  const {setLogin} = useAuth()
+  const { handleLogin } = useAuth();
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  async function login() {
+    setLoading(true);
+    setError(null);
+    try {
+      await handleLogin({ email, password });
+    } catch (err) {
+      setError('Invalid credentials');
+    } finally {
+      setLoading(false);
+    }
+  }
+
   return (
     <View style={styles.container}>
       <KeyboardAvoidingView behavior='padding' keyboardVerticalOffset={Platform.OS === 'ios' ? 100 : 0}>
-       <View style={{flexDirection:'row', alignItems:'center', marginBottom: 20, justifyContent:'center'}}>
-        <Image source={require('../../assets/logo_adote.png')} style={styles.logo} />
-        <Text style={styles.headerText}>Pet Hug</Text>
-       </View>
-       <View style={styles.caixa}>
+         <View style={{flexDirection:'row', alignItems:'center', marginBottom: 20, justifyContent:'center'}}>
+                       <Image source={require('../../assets/logo_adote.png')} style={styles.logo} />
+                       <Text style={styles.headerText}>Pet Hug</Text>
+                       </View>
+               <View style={styles.caixa}> 
         <Text style={styles.title}>Login</Text>
         <View style={styles.formRow}>
           <MaterialIcons name="email" style={styles.icon} />
           <TextInput
-            placeholderTextColor={colors.primary}
+            placeholderTextColor={'#392566'}
             style={styles.input}
             placeholder="Email"
             keyboardType="email-address"
             autoCapitalize="none"
+            value={email}
+            onChangeText={setEmail}
           />
         </View>
         <View style={styles.formRow}>
           <Entypo name="key" style={styles.icon} />
           <TextInput
-            placeholderTextColor={colors.primary}
+            placeholderTextColor={'#392566'}
             style={styles.input}
             placeholder="Senha"
             secureTextEntry={true}
             autoCapitalize="none"
+            value={password}
+            onChangeText={setPassword}
           />
         </View>
-        <ButtonInterface title='Login' type='primary' onPress={()=> setLogin(true)} />
+        {loading ? (
+          <Loading />
+        ) : (
+          <ButtonInterface title='Login' type='primary' onPress={login} disabled={loading} testID="login-button" />
+        )}
+        {error && <Text style={{ color: 'red' }}>{error}</Text>}
         <ButtonInterface title='Cadastre-se' type='secondary' onPress={() => navigation.navigate("Register")} />
-        </View>
+      </View>
       </KeyboardAvoidingView>
-    
     </View>
   );
-
-  
 }
+
+const colors = {
+  background: '#EEE6FF',
+  primary: '#392566',
+  secundary: '#F4F3F3'
+};
  const styles = StyleSheet.create({
 
     logo: {
@@ -80,7 +104,7 @@ export function LoginScreen({ navigation }: LoginTypes) {
 
     height:'80%',
     width:'120%',
-    backgroundColor: colors.secondary,
+    backgroundColor: colors.secundary,
     borderRadius:50,
     justifyContent:'center',
     alignItems:'center',
