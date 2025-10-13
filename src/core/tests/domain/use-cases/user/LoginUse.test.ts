@@ -7,7 +7,7 @@ describe('LoginUser', () => {
     MockUserRepository.getInstance().reset();
   });
   it('should login a user', async () => {
-    const userRepository = new MockUserRepository();
+    const userRepository = MockUserRepository.getInstance();
     const registerUser = new RegisterUser(userRepository);
     const loginUser = new LoginUser(userRepository);
 
@@ -29,7 +29,7 @@ describe('LoginUser', () => {
   });
 
   it('should throw an error for non-existent user', async () => {
-    const userRepository = new MockUserRepository();
+    const userRepository = MockUserRepository.getInstance();
     const loginUser = new LoginUser(userRepository);
 
     await expect(
@@ -41,7 +41,7 @@ describe('LoginUser', () => {
   });
 
   it('should throw an error for incorrect password', async () => {
-    const userRepository = new MockUserRepository();
+    const userRepository = MockUserRepository.getInstance();
     const registerUser = new RegisterUser(userRepository);
     const loginUser = new LoginUser(userRepository);
 

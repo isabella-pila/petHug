@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1760374746889" clover="3.2.0">
-  <project timestamp="1760374746889" name="All files">
+<coverage generated="1760376943281" clover="3.2.0">
+  <project timestamp="1760376943281" name="All files">
     <metrics statements="291" coveredstatements="259" conditionals="100" coveredconditionals="82" methods="110" coveredmethods="100" elements="501" coveredelements="441" complexity="0" loc="291" ncloc="291" packages="14" files="36" classes="36"/>
     <package name="assets">
       <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
@@ -174,32 +174,32 @@
       <metrics statements="24" coveredstatements="24" conditionals="14" coveredconditionals="14" methods="15" coveredmethods="15"/>
       <file name="Email.ts" path="C:\Users\isabe\Documents\petHug\src\core\domain\value-objects\Email.ts">
         <metrics statements="5" coveredstatements="5" conditionals="2" coveredconditionals="2" methods="3" coveredmethods="3"/>
-        <line num="5" count="41" type="cond" truecount="2" falsecount="0"/>
+        <line num="5" count="38" type="cond" truecount="2" falsecount="0"/>
         <line num="6" count="1" type="stmt"/>
-        <line num="8" count="40" type="stmt"/>
-        <line num="12" count="41" type="stmt"/>
-        <line num="13" count="41" type="stmt"/>
+        <line num="8" count="37" type="stmt"/>
+        <line num="12" count="38" type="stmt"/>
+        <line num="13" count="38" type="stmt"/>
       </file>
       <file name="GeoCoordinates.ts" path="C:\Users\isabe\Documents\petHug\src\core\domain\value-objects\GeoCoordinates.ts">
         <metrics statements="4" coveredstatements="4" conditionals="6" coveredconditionals="6" methods="3" coveredmethods="3"/>
-        <line num="5" count="42" type="cond" truecount="2" falsecount="0"/>
+        <line num="5" count="39" type="cond" truecount="2" falsecount="0"/>
         <line num="6" count="2" type="stmt"/>
-        <line num="8" count="40" type="stmt"/>
-        <line num="12" count="42" type="cond" truecount="4" falsecount="0"/>
+        <line num="8" count="37" type="stmt"/>
+        <line num="12" count="39" type="cond" truecount="4" falsecount="0"/>
       </file>
       <file name="Name.ts" path="C:\Users\isabe\Documents\petHug\src\core\domain\value-objects\Name.ts">
         <metrics statements="4" coveredstatements="4" conditionals="2" coveredconditionals="2" methods="3" coveredmethods="3"/>
-        <line num="5" count="56" type="cond" truecount="2" falsecount="0"/>
+        <line num="5" count="53" type="cond" truecount="2" falsecount="0"/>
         <line num="6" count="1" type="stmt"/>
-        <line num="8" count="55" type="stmt"/>
-        <line num="12" count="56" type="stmt"/>
+        <line num="8" count="52" type="stmt"/>
+        <line num="12" count="53" type="stmt"/>
       </file>
       <file name="Password.ts" path="C:\Users\isabe\Documents\petHug\src\core\domain\value-objects\Password.ts">
         <metrics statements="4" coveredstatements="4" conditionals="2" coveredconditionals="2" methods="3" coveredmethods="3"/>
-        <line num="5" count="41" type="cond" truecount="2" falsecount="0"/>
+        <line num="5" count="38" type="cond" truecount="2" falsecount="0"/>
         <line num="6" count="1" type="stmt"/>
-        <line num="8" count="40" type="stmt"/>
-        <line num="12" count="41" type="stmt"/>
+        <line num="8" count="37" type="stmt"/>
+        <line num="12" count="38" type="stmt"/>
       </file>
       <file name="Photo.ts" path="C:\Users\isabe\Documents\petHug\src\core\domain\value-objects\Photo.ts">
         <metrics statements="7" coveredstatements="7" conditionals="2" coveredconditionals="2" methods="3" coveredmethods="3"/>
@@ -256,10 +256,10 @@
       </file>
       <file name="MockUserRepository.ts" path="C:\Users\isabe\Documents\petHug\src\core\infra\repositories\MockUserRepository.ts">
         <metrics statements="12" coveredstatements="8" conditionals="8" coveredconditionals="6" methods="12" coveredmethods="8"/>
-        <line num="10" count="17" type="stmt"/>
-        <line num="21" count="58" type="cond" truecount="2" falsecount="0"/>
+        <line num="10" count="14" type="stmt"/>
+        <line num="21" count="61" type="cond" truecount="2" falsecount="0"/>
         <line num="22" count="14" type="stmt"/>
-        <line num="24" count="58" type="stmt"/>
+        <line num="24" count="61" type="stmt"/>
         <line num="28" count="20" type="stmt"/>
         <line num="32" count="12" type="cond" truecount="2" falsecount="0"/>
         <line num="36" count="16" type="cond" truecount="2" falsecount="0"/>
