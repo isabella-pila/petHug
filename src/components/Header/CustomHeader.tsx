@@ -1,10 +1,10 @@
 import React from 'react';
-import { View, Text, Image, StyleSheet, SafeAreaView, StatusBar } from 'react-native';
-
+import { View, Text, Image, StyleSheet,  StatusBar } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 export default function CustomHeader() {
   return (
-    <SafeAreaView style={styles.safeArea}>
+    <SafeAreaView>
       <View style={styles.headerContainer}>
         <Image source={require("../../../assets/logo_adote.png")}  style={styles.logo} />
         <Text style={styles.headerText}>Pet Hug</Text>
@@ -14,11 +14,7 @@ export default function CustomHeader() {
 }
 
 const styles = StyleSheet.create({
-  safeArea: {
-    backgroundColor: '#C8B2F6', 
-    paddingTop: StatusBar.currentHeight || 0,
-    
-  },
+
   headerContainer: {
     flexDirection: 'row', 
     alignItems: 'center', 

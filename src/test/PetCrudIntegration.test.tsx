@@ -1,5 +1,3 @@
-
-
 import React from 'react';
 import { render, fireEvent, waitFor, screen } from '@testing-library/react-native';
 import { NavigationContainer } from '@react-navigation/native';
@@ -7,7 +5,6 @@ import { AuthProvider } from '../context/auth';
 import { MockPetPerfilRepository } from '../core/infra/repositories/MockPetPerfilRepository';
 import AreaPetStack from '../navigation/AreaPetStack';
 import { Alert } from 'react-native';
-
 
 jest.spyOn(Alert, 'alert');
 const mockConfirmDeleteInAlert = () => {

@@ -7,6 +7,7 @@ import {
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { RootStackParamList } from "../../navigation/stack.routes";
+import { HomeStackParamList } from "../../navigation/HomeStack";
 
 const colors = {
   background: "#EEE6FF",
@@ -24,7 +25,7 @@ type HighLightProps = {
   descricao: string
 };
 
-type NavProp = NativeStackNavigationProp<RootStackParamList, "MainTabs">;
+type NavProp = NativeStackNavigationProp<HomeStackParamList>;
 
 export function HighLight({ id, title, image, category, descricao }: HighLightProps) {
   const navigation = useNavigation<NavProp>();
@@ -40,8 +41,8 @@ export function HighLight({ id, title, image, category, descricao }: HighLightPr
         source={
           image
             ? typeof image === "string"
-              ? { uri: image } // Se for string, usa como URI
-              : image // Se não, usa diretamente (resultado do require)
+              ? { uri: image } 
+              : image
             : { uri: "https://placehold.co/200x200?text=Pet" } 
         }
         style={styles.cardImage}

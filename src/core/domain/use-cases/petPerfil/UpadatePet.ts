@@ -28,7 +28,7 @@ export class UpdatePetPerfil {
 
    
 const updatedPetProfile = PetPerfil.update(
-  petProfile.id,         // mantém o mesmo id
+  petProfile.id,        
   newNome,
   newPhoto,
   newCategory,
