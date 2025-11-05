@@ -27,7 +27,7 @@ export class UpdatePetPerfil {
     const newCategory = category  ?? petProfile.category;
 
    
-const updatedPetProfile = PetPerfil.update(
+const updatedPetProfile = PetPerfil.reconstitute(
   petProfile.id,        
   newNome,
   newPhoto,

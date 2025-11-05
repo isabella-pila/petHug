@@ -20,19 +20,21 @@ export class PetPerfil {
     category: string,
     descricao: string,
     donoId: string,
+    
   ): PetPerfil {
     const id = generateUniqueId();
     return new PetPerfil(id, name, foto, category, descricao, donoId);
   }
 
-  static update(
-    id: string,
-    name: Name,
-    foto: Photo,
-    category: string,
-    descricao: string,
-    donoId: string,
-  ): PetPerfil {
-    return new PetPerfil(id, name, foto, category, descricao, donoId);
-  }
+static reconstitute(
+ id: string,
+ name: Name,
+ foto: Photo,
+category: string,
+ descricao: string,
+ donoId: string,
+ ): PetPerfil {
+
+return new PetPerfil(id, name, foto, category, descricao, donoId);
+ }
 }

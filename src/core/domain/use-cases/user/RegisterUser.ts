@@ -5,6 +5,7 @@ import { Email } from '../../value-objects/Email';
 import { Password } from '../../value-objects/Password';
 import { GeoCoordinates } from '../../value-objects/GeoCoordinates';
 
+
 export class RegisterUser {
   constructor(private readonly userRepository: IUserRepository) {}
 
@@ -18,27 +19,19 @@ export class RegisterUser {
     const { name, email, password, latitude, longitude } = params;
 
     const userExists = await this.userRepository.findByEmail(email);
-
+    
     if (userExists) {
       throw new Error('User already exists');
     }
 
-    const hashedPassword = await this.hashPassword(password);
-
     const user = User.create(
-      Math.random().toString(),
+      '', // ID is empty, to be filled by repository
       Name.create(name),
       Email.create(email),
-      Password.create(hashedPassword),
+      Password.create(password), // Pass plain password
       GeoCoordinates.create(latitude, longitude)
     );
 
-    await this.userRepository.save(user);
-
-    return user;
-  }
-
-  private async hashPassword(password: string): Promise<string> {
-    return `hashed_${password}`;
+    return this.userRepository.register(user);
   }
 }

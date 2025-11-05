@@ -24,8 +24,9 @@ export class MockUserRepository implements IUserRepository {
     return MockUserRepository.instance;
   }
 
-  async save(user: User): Promise<void> {
+  async register(user: User): Promise<User> {
     this.users.push(user);
+    return user;
   }
 
   async findByEmail(email: string): Promise<User | null> {
@@ -50,4 +51,17 @@ export class MockUserRepository implements IUserRepository {
   public reset(): void {
     this.users = [];
   }
+
+  async authenticate(email: string, password: string): Promise<User> {
+    const user = await this.findByEmail(email);
+    if (!user) {
+      throw new Error('Invalid credentials');
+    }
+    const isPasswordValid = `hashed_${password}` === user.password.value;
+    if (!isPasswordValid) {
+      throw new Error('Invalid credentials');
+    }
+    return user;
+  }
+
 }

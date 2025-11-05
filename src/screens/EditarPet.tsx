@@ -58,7 +58,7 @@ export default function EditarPetScreen() {
                 nome: nome,
                 photoUrl: foto,
                 descricao: descricao,
-                category: category, // ✨ Envia a categoria para o use case
+                category: category, 
             });
             Alert.alert('Sucesso!', 'As informações do pet foram atualizadas.');
             navigation.goBack();
