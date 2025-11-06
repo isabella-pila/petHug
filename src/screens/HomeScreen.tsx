@@ -71,7 +71,7 @@ export default function HomeScreen() {
   return (
     <View style={styles.container}>
       <CustomHeader />
-      <View style={{ alignItems: 'center', marginTop: 10 }}>
+      <View style={{ alignItems: 'center',  }}>
         <Text style={styles.textoAdocao}>Filtre pela sua preferência pet</Text>
       </View>
 

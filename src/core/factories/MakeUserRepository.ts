@@ -11,24 +11,25 @@ import { SupabaseUserRepository } from '../infra/repositories/supabaseUserReposi
 
 export function makeUserUseCases() {
   
-  // ✅ 1. Cria a instância do repositório CORRETAMENTE
   // Vamos usar o Supabase diretamente, já que é esse o seu objetivo.
   const userRepository: IUserRepository = SupabaseUserRepository.getInstance();
   
-  // (Se você quisesse usar a variável de ambiente, a sintaxe correta seria:)
+
   /*
   const userRepository: IUserRepository = process.env.EXPO_PUBLIC_USE_API === 'true'
     ? SupabaseUserRepository.getInstance()
     : MockUserRepository.getInstance();
   */
 
-  // ✅ 2. Injeta o repositório em TODOS os use cases
   const registerUser = new RegisterUser(userRepository);
   const loginUser = new LoginUser(userRepository);
 
   const findUser = new FindUser(userRepository);
 
+  const logoutUser = new LogoutUser(userRepository);
+
   return {
+    logoutUser,
     registerUser,
     loginUser,
     findUser,

@@ -10,6 +10,7 @@ export interface IAuthContextData {
   user: User | null;
   session: Session | null;
   handleLogin(data: { email: string, password: string }): Promise<void>;
+  handleLogout(): Promise<void>;
 }
 
 export interface IProvider {
@@ -52,9 +53,38 @@ export const AuthProvider = ({ children }: IProvider) => {
       throw error;
     }
   };
+const handleLogout = async () => {
+    try {
+      // 1. Verificação de segurança
+      // Se por algum motivo não houver usuário, apenas limpe o local.
+      if (!user || !user.id) {
+        console.warn("Tentativa de logout sem usuário no estado.");
+        setUser(null);
+        setLogin(false);
+        setSession(null);
+        return; 
+      }
+
+      // 2. A CORREÇÃO:
+      // Passe o ID do usuário que está no estado 'user'
+      await userUseCases.logoutUser.execute({ userId: user.id }); 
+      
+      // 3. Limpa o estado local
+      setUser(null);
+      setLogin(false);
+      setSession(null); 
+
+    } catch (error) {
+      console.error("Logout failed:", error);
+      // Força o logout local mesmo se o 'execute' falhar
+      setUser(null);
+      setLogin(false);
+      setSession(null);
+    }
+  };
 
   return (
-    <AuthContext.Provider value={{ login, setLogin, user, session, handleLogin }}>
+    <AuthContext.Provider value={{ login, setLogin, user, session, handleLogin, handleLogout }}>
       {children}
     </AuthContext.Provider>
   );
