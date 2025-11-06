@@ -32,9 +32,7 @@
         "expo-font",
         {
           "fonts": [
-            "./assets/Itim-Regular.ttf",
-            "./assets/Poppins-Bold.ttf",
-            "./assets/Poppins-Regular.ttf"
+            "./assets/Itim-Regular.ttf"
           ]
         }
       ],
