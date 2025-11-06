@@ -21,12 +21,13 @@
         "backgroundColor": "#ffffff"
       },
       "edgeToEdgeEnabled": true,
-      "predictiveBackGestureEnabled": false
+      "predictiveBackGestureEnabled": false,
+      "package": "com.isabellapila.petteste"
     },
     "web": {
       "favicon": "./assets/favicon.png"
     },
-      "plugins": [
+    "plugins": [
       [
         "expo-font",
         {
@@ -38,6 +39,11 @@
         }
       ],
       "expo-asset"
-    ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "65e12272-1103-476a-9b4c-7c8c095a6360"
+      }
+    }
   }
 }
