@@ -48,8 +48,8 @@ export function RegisterScreen({ navigation }: LoginTypes) {
   }
 
   return (
-    <View style={styles.container}>
-      <KeyboardAvoidingView behavior="padding" keyboardVerticalOffset={Platform.OS === 'ios' ? 100 : 0}>
+    
+      <KeyboardAvoidingView style={styles.container} behavior="padding" keyboardVerticalOffset={Platform.OS === 'ios' ? 100 : 0}>
         <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 20, justifyContent: 'center' }}>
           <Image source={require('../../assets/logo_adote.png')} style={styles.logo} />
           <Text style={styles.headerText}>Pet Hug</Text>
@@ -106,7 +106,6 @@ export function RegisterScreen({ navigation }: LoginTypes) {
           <ButtonInterface title="Voltar" type="primary" onPress={() => navigation.navigate('Login')} />
         </View>
       </KeyboardAvoidingView>
-    </View>
   );
 }
 

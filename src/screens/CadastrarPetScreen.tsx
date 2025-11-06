@@ -14,7 +14,7 @@ import { makePetPerfilUseCases } from '../core/factories/MakePetPerfilRepository
 import { CameraView, CameraType, useCameraPermissions, CameraCapturedPicture } from 'expo-camera';
 import * as ImagePicker from 'expo-image-picker';
 
-
+import { ScrollView } from 'react-native';
 
 const SUPABASE_BUCKET_NAME = 'pets_bucket';
 
@@ -183,98 +183,96 @@ export default function CadastrarPetScreen() {
     };
 
     // --- JSX (O que aparece na tela) ---
-    return (
-        <View style={styles.container}>
-            <CustomHeader />
-            <View style={{ alignItems: 'center', justifyContent: 'center' }}>
-                <KeyboardAvoidingView behavior='padding' keyboardVerticalOffset={Platform.OS === 'ios' ? 100 : 0}>
-                    <View style={styles.caixa}>
-                        <Text style={styles.title}>Cadastrar Pet</Text>
+return (
+  <View style={styles.container}>
+    <CustomHeader />
 
-                      <View style={styles.formRow}>
-                            <Ionicons name="paw-outline" style={styles.icon} />
-                            <TextInput
-                                placeholderTextColor={colors.primary}
-                                style={styles.input}
-                                placeholder="Nome"
-                                value={nome}
-                                onChangeText={setNome}
-                            />
-                        </View>
+    <KeyboardAvoidingView
+      behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+      style={{ flex: 1 }}
+    >
+      <ScrollView
+        contentContainerStyle={styles.scrollContainer}
+        showsVerticalScrollIndicator={false}
+      >
+        <View style={styles.caixa}>
+          <Text style={styles.title}>Cadastrar Pet</Text>
 
+          <View style={styles.formRow}>
+            <Ionicons name="paw-outline" style={styles.icon} />
+            <TextInput
+              placeholderTextColor={colors.primary}
+              style={styles.input}
+              placeholder="Nome"
+              value={nome}
+              onChangeText={setNome}
+            />
+          </View>
 
-                       
-                        <View style={styles.buttonRow}>
-                            {/* Botão Câmera */}
-                            <TouchableOpacity style={styles.halfButton} onPress={handleOpenGamera}>
-                                <EvilIcons name="camera" style={styles.icon} />
-                                <Text style={styles.imagePickerText}>Tirar Foto</Text>
-                            </TouchableOpacity>
-                            {/* Botão Galeria */}
-                            <TouchableOpacity style={styles.halfButton} onPress={handlePickImageFromGallery}>
-                                <Ionicons name="images-outline" style={styles.icon} />
-                                <Text style={styles.imagePickerText}>Galeria</Text>
-                            </TouchableOpacity>
-                        </View>
+          <View style={styles.buttonRow}>
+            <TouchableOpacity style={styles.halfButton} onPress={handleOpenGamera}>
+              <EvilIcons name="camera" style={styles.icon} />
+              <Text style={styles.imagePickerText}>Tirar Foto</Text>
+            </TouchableOpacity>
 
-                        {/*  Preview da Imagem (mostra a foto, não importa de onde veio) */}
-                        {fotoAsset && (
-                            <View style={styles.previewContainer}>
-                                <Image
-                                    source={{ uri: fotoAsset.uri }}
-                                    style={styles.imagePreview}
-                                />
-                                <TouchableOpacity onPress={() => setFotoAsset(null)} style={styles.removeImageButton}>
-                                    <AntDesign name="close-circle" size={24} color={colors.primary} />
-                                </TouchableOpacity>
-                            </View>
-                        )}
+            <TouchableOpacity style={styles.halfButton} onPress={handlePickImageFromGallery}>
+              <Ionicons name="images-outline" style={styles.icon} />
+              <Text style={styles.imagePickerText}>Galeria</Text>
+            </TouchableOpacity>
+          </View>
 
-                <View style={styles.formRow}>
-                            <Ionicons name="document-text-outline" style={styles.icon} />
-                            <TextInput
-                                placeholderTextColor={colors.primary}
-                                style={styles.input}
-                                placeholder="Descrição"
-                                value={descricao}
-                                onChangeText={setDescricao}
-                            />
-                        </View>
-
-                        
-                        <View style={styles.formRow}>
-                            <Ionicons name="apps-outline" style={styles.icon} />
-                            <View style={styles.pickerContainer}>
-                                <Picker
-                                    selectedValue={category}
-                                    onValueChange={(itemValue) =>
-                                        setCategory(itemValue)
-                                    }
-                                    style={styles.picker}
-                                >
-                                    <Picker.Item label="Selecione uma categoria..." value="" enabled={false} style={{ color: colors.grey }} />
-                                    <Picker.Item label="Gato" value="gato" />
-                                    <Picker.Item label="Cachorro" value="cachorro" />
-                                    <Picker.Item label="Outros" value="outros" />
-                                </Picker>
-                            </View>
-                        </View>
-
-                        
-                        {loading ? (
-                            <ActivityIndicator size="large" color={colors.primary} style={{ marginVertical: 15 }} />
-                        ) : (
-                            <ButtonInterface title='Cadastrar' type='primary' onPress={handleCadastrar} />
-                        )}
-
-                        {error && <Text style={{ color: 'red', marginTop: 10, textAlign: 'center' }}>{error}</Text>}
-
-                        <TouchableOpacity onPress={() => navigation.goBack()} style={styles.button} disabled={loading}>
-                            <Text style={styles.adoptButtonText}>Voltar</Text>
-                        </TouchableOpacity>
-                    </View>
-                </KeyboardAvoidingView>
+          {fotoAsset && (
+            <View style={styles.previewContainer}>
+              <Image source={{ uri: fotoAsset.uri }} style={styles.imagePreview} />
+              <TouchableOpacity onPress={() => setFotoAsset(null)} style={styles.removeImageButton}>
+                <AntDesign name="close-circle" size={24} color={colors.primary} />
+              </TouchableOpacity>
             </View>
+          )}
+
+          <View style={styles.formRow}>
+            <Ionicons name="document-text-outline" style={styles.icon} />
+            <TextInput
+              placeholderTextColor={colors.primary}
+              style={styles.input}
+              placeholder="Descrição"
+              value={descricao}
+              onChangeText={setDescricao}
+            />
+          </View>
+
+          <View style={styles.formRow}>
+            <Ionicons name="apps-outline" style={styles.icon} />
+            <View style={styles.pickerContainer}>
+              <Picker
+                selectedValue={category}
+                onValueChange={(itemValue) => setCategory(itemValue)}
+                style={styles.picker}
+              >
+                <Picker.Item label="Selecione uma categoria..." value="" enabled={false} />
+                <Picker.Item label="Gato" value="gato" />
+                <Picker.Item label="Cachorro" value="cachorro" />
+                <Picker.Item label="Outros" value="outros" />
+              </Picker>
+            </View>
+          </View>
+
+          {loading ? (
+            <ActivityIndicator size="large" color={colors.primary} style={{ marginVertical: 15 }} />
+          ) : (
+            <ButtonInterface title="Cadastrar" type="primary" onPress={handleCadastrar} />
+          )}
+
+          {error && <Text style={styles.errorText}>{error}</Text>}
+
+          {/* 🔥 Botão voltar sempre visível */}
+          <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backButton} disabled={loading}>
+            <Text style={styles.adoptButtonText}>Voltar</Text>
+          </TouchableOpacity>
+        </View>
+      </ScrollView>
+    </KeyboardAvoidingView>
+    
 
             
             <Modal visible={showCameraModal} animationType="slide" style={{ flex: 1 }}>
@@ -326,124 +324,128 @@ const colors = {
 };
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: colors.background,
-    },
-    caixa: {
-        width: '90%',
-        backgroundColor: colors.secundary,
-        borderRadius: 20,
-        justifyContent: 'center',
-        alignItems: 'center',
-        elevation: 5,
-        paddingVertical: 30,
-        paddingHorizontal: 15,
-        marginTop: 50,
-        alignSelf: 'center',
-    },
-    title: {
-        fontSize: 30,
-        fontFamily: "Itim-Regular",
-        textAlign: 'center',
-        color: colors.primary,
-        marginBottom: 20,
-    },
-    formRow: {
-        marginBottom: 15,
-        flexDirection: "row",
-        alignItems: "center",
-        borderWidth: 1,
-        borderColor: '#d3cfcf',
-        borderRadius: 10,
-        width: '95%',
-        backgroundColor: '#fff',
-        paddingHorizontal: 10,
-    },
-    icon: {
-        fontSize: 24,
-        color: colors.primary,
-        marginRight: 10,
-    },
-    input: {
-        flex: 1,
-        fontSize: 16,
-        height: 50,
-        color: colors.primary,
-    },
-    pickerContainer: {
-        flex: 1,
-        height: 50,
-        justifyContent: 'center',
-    },
-    picker: {
-        width: '100%',
-        height: '110%',
-        color: colors.primary,
-    },
-    button: {
-        backgroundColor: '#392566',
-        borderRadius: 20,
-        marginTop: 15,
-        width: 120,
-        alignItems: 'center',
-        justifyContent: 'center',
-        height: 50,
-    },
-    adoptButtonText: {
-        color: '#fff',
-        fontSize: 18,
-        fontWeight: 'bold',
-        fontFamily: 'Itim-regular',
-    },
-    
-
-    buttonRow: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        width: '95%',
-        marginBottom: 15,
-    },
-    halfButton: {
-        flexDirection: "row",
-        alignItems: "center",
-        justifyContent: 'center',
-        borderWidth: 1,
-        borderColor: colors.primary,
-        borderStyle: 'dashed',
-        borderRadius: 10,
-        width: '48%', 
-        backgroundColor: '#fff',
-        paddingVertical: 15,
-    },
-    imagePickerText: {
-        fontSize: 14,
-        color: colors.primary,
-        fontFamily: "Itim-Regular",
-    },
-    previewContainer: {
-        position: 'relative', 
-    },
-    imagePreview: {
-        width: 150,
-        height: 150,
-        borderRadius: 10,
-        marginBottom: 15,
-        borderWidth: 1,
-        borderColor: colors.grey,
-    },
-    removeImageButton: {
-        position: 'absolute',
-        top: -10, 
-        right: -10,
-        backgroundColor: colors.secundary,
-        borderRadius: 12,
-    },
-
-   
+  container: {
+    flex: 1,
+    backgroundColor: colors.background,
+  },
+  scrollContainer: {
+    flexGrow: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingVertical: 20,
+  },
+  caixa: {
+    width: '90%',
+    backgroundColor: colors.secundary,
+    borderRadius: 20,
+    justifyContent: 'center',
+    alignItems: 'center',
+    elevation: 5,
+    paddingVertical: 25,
+    paddingHorizontal: 15,
+  },
+  title: {
+    fontSize: 28,
+    fontFamily: 'Itim-Regular',
+    textAlign: 'center',
+    color: colors.primary,
+    marginBottom: 20,
+  },
+  formRow: {
+    marginBottom: 15,
+    flexDirection: 'row',
+    alignItems: 'center',
+    borderWidth: 1,
+    borderColor: '#d3cfcf',
+    borderRadius: 10,
+    width: '100%',
+    backgroundColor: '#fff',
+    paddingHorizontal: 10,
+  },
+  icon: {
+    fontSize: 24,
+    color: colors.primary,
+    marginRight: 10,
+  },
+  input: {
+    flex: 1,
+    fontSize: 16,
+    height: 50,
+    color: colors.primary,
+  },
+  pickerContainer: {
+    flex: 1,
+    height: 50,
+    justifyContent: 'center',
+  },
+  picker: {
+    width: '100%',
+    color: colors.primary,
+  },
+  buttonRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    width: '100%',
+    marginBottom: 15,
+  },
+  halfButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderWidth: 1,
+    borderColor: colors.primary,
+    borderStyle: 'dashed',
+    borderRadius: 10,
+    width: '48%',
+    backgroundColor: '#fff',
+    paddingVertical: 15,
+  },
+  imagePickerText: {
+    fontSize: 14,
+    color: colors.primary,
+    fontFamily: 'Itim-Regular',
+  },
+  previewContainer: {
+    position: 'relative',
+    marginBottom: 15,
+  },
+  imagePreview: {
+    width: 160,
+    height: 160,
+    borderRadius: 10,
+    borderWidth: 1,
+    borderColor: colors.grey,
+  },
+  removeImageButton: {
+    position: 'absolute',
+    top: -10,
+    right: -10,
+    backgroundColor: colors.secundary,
+    borderRadius: 12,
+  },
+  backButton: {
+    backgroundColor: colors.primary,
+    borderRadius: 20,
+    marginTop: 20,
+    width: '60%',
+    alignItems: 'center',
+    justifyContent: 'center',
+    height: 50,
+  },
+  adoptButtonText: {
+    color: colors.white,
+    fontSize: 18,
+    fontWeight: 'bold',
+    fontFamily: 'Itim-Regular',
+  },
+  errorText: {
+    color: 'red',
+    marginTop: 10,
+    textAlign: 'center',
+  },
     cameraHeader: {
         position: 'absolute',
-        top: 40,
+        top: 50, // Um pouco mais para baixo, seguro
         left: 0,
         right: 0,
         flexDirection: 'row',
@@ -453,7 +455,7 @@ const styles = StyleSheet.create({
     },
     cameraFooter: {
         position: 'absolute',
-        bottom: 40,
+        bottom: 50, 
         left: 0,
         right: 0,
         alignItems: 'center',

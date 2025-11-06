@@ -2,7 +2,8 @@ import React, { useState, useEffect, useRef } from 'react';
 import {
     KeyboardAvoidingView, View, Text, TextInput, Platform,
     TouchableOpacity, Alert, ActivityIndicator, StyleSheet,
-    Image, Modal, ImageBackground
+    Image, Modal, ImageBackground,
+    ScrollView
 } from 'react-native';
 import { ButtonInterface } from '../components/ButtonInterface';
 import { Ionicons, EvilIcons, AntDesign } from '@expo/vector-icons'; 
@@ -196,85 +197,114 @@ export default function EditarPetScreen() {
         );
     }
     
-    return (
-        <View style={styles.container}>
-            <CustomHeader />
-            <View style={{ alignItems: 'center', justifyContent: 'center' }}>
-                <KeyboardAvoidingView behavior='padding' keyboardVerticalOffset={Platform.OS === 'ios' ? 100 : 0}>
-                    <View style={styles.caixa}>
-                        <Text style={styles.title}>Editar Pet</Text>
-                        
-                     
-                        <View style={styles.formRow}>
-                            <Ionicons name="paw-outline" style={styles.icon} />
-                            <TextInput placeholderTextColor={colors.primary} style={styles.input} placeholder="Nome" value={nome} onChangeText={setNome}/>
-                        </View>
-                        
-                     
-                        <View style={styles.buttonRow}>
-                            <TouchableOpacity style={styles.halfButton} onPress={handleOpenGamera}>
-                                <EvilIcons name="camera" style={styles.icon} />
-                                <Text style={styles.imagePickerText}>Tirar Foto</Text>
-                            </TouchableOpacity>
-                            <TouchableOpacity style={styles.halfButton} onPress={handlePickImageFromGallery}>
-                                <Ionicons name="images-outline" style={styles.icon} />
-                                <Text style={styles.imagePickerText}>Galeria</Text>
-                            </TouchableOpacity>
-                        </View>
+return (
+  <KeyboardAvoidingView
+    style={styles.container}
+    behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+    keyboardVerticalOffset={Platform.OS === 'ios' ? 100 : 0}
+  >
+    <CustomHeader />
 
-                       
-                        <View style={styles.previewContainer}>
-                            <Image
-                                // Lógica de preview: mostra a FOTO NOVA (asset) se ela existir,
-                                // senão, mostra a FOTO ANTIGA (url)
-                                source={{ uri: fotoAsset ? fotoAsset.uri : foto }}
-                                style={styles.imagePreview}
-                            />
-                            {/* Mostra o 'X' só se tiver uma foto nova selecionada */}
-                            {fotoAsset && (
-                                <TouchableOpacity onPress={() => setFotoAsset(null)} style={styles.removeImageButton}>
-                                    <AntDesign name="close-circle" size={24} color={colors.primary} />
-                                </TouchableOpacity>
-                            )}
-                        </View>
+    <ScrollView
+      contentContainerStyle={styles.scrollContainer}
+      showsVerticalScrollIndicator={false}
+      keyboardShouldPersistTaps="handled"
+    >
+      <View style={styles.caixa}>
+        <Text style={styles.title}>Editar Pet</Text>
 
-                        {/* Input Descrição */}
-                        <View style={styles.formRow}>
-                            <Ionicons name="document-text-outline" style={styles.icon} />
-                            <TextInput placeholderTextColor={colors.primary} style={styles.input} placeholder="Descrição" value={descricao} onChangeText={setDescricao}/>
-                        </View>
+        <View style={styles.formRow}>
+          <Ionicons name="paw-outline" style={styles.icon} />
+          <TextInput
+            placeholderTextColor={colors.primary}
+            style={styles.input}
+            placeholder="Nome"
+            value={nome}
+            onChangeText={setNome}
+          />
+        </View>
 
-                        {/* Picker Categoria */}
-                        <View style={styles.formRow}>
-                            <Ionicons name="document-text-outline" style={styles.icon} />
-                            <View style={styles.pickerContainer}>
-                                <Picker
-                                    selectedValue={category}
-                                    onValueChange={(itemValue) => setCategory(itemValue)}
-                                    style={styles.picker}
-                                >
-                              
-                                    <Picker.Item label="Selecione uma categoria..." value="" enabled={false} style={{ color: colors.grey }} /> 
-                                    <Picker.Item label="Gato" value="gato" />
-                                    <Picker.Item label="Cachorro" value="cachorro" />
-                                    <Picker.Item label="Outros" value="outros" />
-                                </Picker>
-                            </View>
-                        </View>
-                        
-                        {/* Botões de Ação */}
-                        {loading ? (
-                            <ActivityIndicator size="large" color={colors.primary} style={{ marginVertical: 15 }} />
-                        ) : (
-                            <ButtonInterface title='Salvar Alterações' type='primary' onPress={handleSalvarAlteracoes} />
-                        )}
-                        {error && <Text style={{ color: 'red', marginTop: 10, textAlign: 'center' }}>{error}</Text>}
-                        <TouchableOpacity onPress={() => navigation.goBack()} style={styles.button} disabled={loading}>
-                            <Text style={styles.adoptButtonText}>Voltar</Text>
-                        </TouchableOpacity>
-                    </View>
-                </KeyboardAvoidingView>
-            </View>
+        <View style={styles.buttonRow}>
+          <TouchableOpacity style={styles.halfButton} onPress={handleOpenGamera}>
+            <EvilIcons name="camera" style={styles.icon} />
+            <Text style={styles.imagePickerText}>Tirar Foto</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.halfButton} onPress={handlePickImageFromGallery}>
+            <Ionicons name="images-outline" style={styles.icon} />
+            <Text style={styles.imagePickerText}>Galeria</Text>
+          </TouchableOpacity>
+        </View>
+
+        <View style={styles.previewContainer}>
+          <Image
+            source={{ uri: fotoAsset ? fotoAsset.uri : foto }}
+            style={styles.imagePreview}
+          />
+          {fotoAsset && (
+            <TouchableOpacity
+              onPress={() => setFotoAsset(null)}
+              style={styles.removeImageButton}
+            >
+              <AntDesign name="close-circle" size={24} color={colors.primary} />
+            </TouchableOpacity>
+          )}
+        </View>
+
+        <View style={styles.formRow}>
+          <Ionicons name="document-text-outline" style={styles.icon} />
+          <TextInput
+            placeholderTextColor={colors.primary}
+            style={styles.input}
+            placeholder="Descrição"
+            value={descricao}
+            onChangeText={setDescricao}
+          />
+        </View>
+
+        <View style={styles.formRow}>
+          <Ionicons name="document-text-outline" style={styles.icon} />
+          <View style={styles.pickerContainer}>
+            <Picker
+              selectedValue={category}
+              onValueChange={(itemValue) => setCategory(itemValue)}
+              style={styles.picker}
+            >
+              <Picker.Item
+                label="Selecione uma categoria..."
+                value=""
+                enabled={false}
+                style={{ color: colors.grey }}
+              />
+              <Picker.Item label="Gato" value="gato" />
+              <Picker.Item label="Cachorro" value="cachorro" />
+              <Picker.Item label="Outros" value="outros" />
+            </Picker>
+          </View>
+        </View>
+
+        {loading ? (
+          <ActivityIndicator size="large" color={colors.primary} style={{ marginVertical: 15 }} />
+        ) : (
+          <ButtonInterface
+            title="Salvar Alterações"
+            type="primary"
+            onPress={handleSalvarAlteracoes}
+          />
+        )}
+
+        {error && (
+          <Text style={{ color: 'red', marginTop: 10, textAlign: 'center' }}>{error}</Text>
+        )}
+
+        <TouchableOpacity
+          onPress={() => navigation.goBack()}
+          style={styles.button}
+          disabled={loading}
+        >
+          <Text style={styles.adoptButtonText}>Voltar</Text>
+        </TouchableOpacity>
+      </View>
+    </ScrollView>
 
        
             <Modal visible={showCameraModal} animationType="slide" style={{ flex: 1 }}>
@@ -308,7 +338,7 @@ export default function EditarPetScreen() {
                     )}
                 </View>
             </Modal>
-        </View>
+          </KeyboardAvoidingView>
     );
 }
 
@@ -327,6 +357,12 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: colors.background,
     },
+      scrollContainer: {
+    flexGrow: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingVertical: 20,
+  },
     caixa: {
         width: '90%', 
         backgroundColor: colors.secundary,
@@ -336,7 +372,6 @@ const styles = StyleSheet.create({
         elevation: 5,
         paddingVertical: 30, 
         paddingHorizontal: 15,
-        marginTop: 50,
     },
     title: {
         fontSize: 30,

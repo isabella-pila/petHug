@@ -28,8 +28,10 @@ export function LoginScreen({ navigation }: LoginTypes) {
   }
 
   return (
-    <View style={styles.container}>
-      <KeyboardAvoidingView behavior='padding' keyboardVerticalOffset={Platform.OS === 'ios' ? 100 : 0}>
+  
+      <KeyboardAvoidingView style={styles.container} // <--- O ESTILO VEIO PARA CÁ
+      behavior={Platform.OS === 'ios' ? 'padding' : 'height'} // <--- MELHOR AJUSTE
+      keyboardVerticalOffset={Platform.OS === 'ios' ? 100 : 0}>
          <View style={{flexDirection:'row', alignItems:'center', marginBottom: 20, justifyContent:'center'}}>
                        <Image source={require('../../assets/logo_adote.png')} style={styles.logo} />
                        <Text style={styles.headerText}>Pet Hug</Text>
@@ -69,7 +71,6 @@ export function LoginScreen({ navigation }: LoginTypes) {
         <ButtonInterface title='Cadastre-se' type='secondary' onPress={() => navigation.navigate("Register")} />
       </View>
       </KeyboardAvoidingView>
-    </View>
   );
 }
 
