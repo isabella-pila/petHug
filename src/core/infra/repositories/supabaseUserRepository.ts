@@ -64,7 +64,7 @@ export class SupabaseUserRepository implements IUserRepository {
     });
 
     if (authError) {
-      throw new Error(authError.message);
+      throw new Error(authError.message+'aaa');
     }
     if (!authData.user) {
       throw new Error('User not found');

@@ -6,14 +6,16 @@ import { LogoutUser } from '../domain/use-cases/user/LogoutUser';
 import { RegisterUser } from '../domain/use-cases/user/RegisterUser';
 import { FindUser } from '../domain/use-cases/user/FindUser';
 import { SupabaseUserRepository } from '../infra/repositories/supabaseUserRepository';
-// Importe o MockUserRepository se você planeja usá-lo em testes
-// import { MockUserRepository } from '../infra/repositories/MockUserRepository';
+import { HybridUserRepository } from '../infra/repositories/HybridUserRepository';
+import { MockUserRepository } from '../infra/repositories/MockUserRepository';
+
 
 export function makeUserUseCases() {
   
-  // Vamos usar o Supabase diretamente, já que é esse o seu objetivo.
-  const userRepository: IUserRepository = SupabaseUserRepository.getInstance();
-  
+    const userRepository: IUserRepository = process.env.EXPO_PUBLIC_USE_API
+    ? HybridUserRepository.getInstance()
+    : MockUserRepository.getInstance();
+
 
   /*
   const userRepository: IUserRepository = process.env.EXPO_PUBLIC_USE_API === 'true'

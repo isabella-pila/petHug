@@ -5,6 +5,7 @@ import { Loading } from '../components/Loading';
 import { LoginTypes } from '../navigation/LoginstackNavigation';
 import { MaterialIcons, Entypo, Ionicons } from "@expo/vector-icons";
 import { supabase } from '../core/infra/supabase/client/supabaseClient';
+import * as Location from 'expo-location';
 
 export function RegisterScreen({ navigation }: LoginTypes) {
   const [name, setName] = useState('');
@@ -16,15 +17,31 @@ export function RegisterScreen({ navigation }: LoginTypes) {
   async function handleRegister() {
     setLoading(true);
     setError(null);
+
     try {
+      // 📍 PEDIR PERMISSÃO DE LOCALIZAÇÃO
+      const { status } = await Location.requestForegroundPermissionsAsync();
+      if (status !== 'granted') {
+        Alert.alert("Erro", "Permissão de localização negada.");
+        return;
+      }
+
+      // 📍 PEGAR A LOCALIZAÇÃO REAL
+      const location = await Location.getCurrentPositionAsync({});
+      const latitude = location.coords.latitude;
+      const longitude = location.coords.longitude;
+
+      console.log("Localização capturada:", latitude, longitude);
+
+      // 📌 Registrar no Supabase com latitude/longitude
       const { data, error: signUpError } = await supabase.auth.signUp({
         email: email,
         password: password,
         options: {
           data: {
-            name: name,
-            latitude: 0,
-            longitude: 0,
+            name,
+            latitude,
+            longitude,
           },
         },
       });
@@ -32,12 +49,10 @@ export function RegisterScreen({ navigation }: LoginTypes) {
       if (signUpError) throw signUpError;
 
       if (data.user) {
-        Alert.alert(
-          'Registro Concluído!',
-         
-        );
+        Alert.alert("Registro Concluído!", "Seu cadastro foi realizado com sucesso.");
         navigation.navigate('Login');
       }
+
     } catch (err: any) {
       console.error("Erro no registro:", err.message);
       setError(err.message || 'Falha ao registrar usuário.');
@@ -48,64 +63,67 @@ export function RegisterScreen({ navigation }: LoginTypes) {
   }
 
   return (
-    
-      <KeyboardAvoidingView style={styles.container} behavior="padding" keyboardVerticalOffset={Platform.OS === 'ios' ? 100 : 0}>
-        <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 20, justifyContent: 'center' }}>
-          <Image source={require('../../assets/logo_adote.png')} style={styles.logo} />
-          <Text style={styles.headerText}>Pet Hug</Text>
+    <KeyboardAvoidingView
+      style={styles.container}
+      behavior="padding"
+      keyboardVerticalOffset={Platform.OS === 'ios' ? 100 : 0}
+    >
+      <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 20, justifyContent: 'center' }}>
+        <Image source={require('../../assets/logo_adote.png')} style={styles.logo} />
+        <Text style={styles.headerText}>Pet Hug</Text>
+      </View>
+
+      <View style={styles.caixa}>
+        <Text style={styles.title}>Cadastre-se</Text>
+
+        <View style={styles.formRow}>
+          <Ionicons name="person" style={styles.icon} />
+          <TextInput
+            placeholderTextColor={colors.grey}
+            style={styles.input}
+            placeholder="Nome"
+            value={name}
+            onChangeText={setName}
+          />
         </View>
 
-        <View style={styles.caixa}>
-          <Text style={styles.title}>Cadastre-se</Text>
-
-          <View style={styles.formRow}>
-            <Ionicons name="person" style={styles.icon} />
-            <TextInput
-              placeholderTextColor={colors.grey}
-              style={styles.input}
-              placeholder="Nome"
-              value={name}
-              onChangeText={setName}
-            />
-          </View>
-
-          <View style={styles.formRow}>
-            <MaterialIcons name="email" style={styles.icon} />
-            <TextInput
-              placeholderTextColor={colors.grey}
-              style={styles.input}
-              placeholder="Email"
-              keyboardType="email-address"
-              autoCapitalize="none"
-              value={email}
-              onChangeText={setEmail}
-            />
-          </View>
-
-          <View style={styles.formRow}>
-            <Entypo name="key" style={styles.icon} />
-            <TextInput
-              placeholderTextColor={colors.grey}
-              style={styles.input}
-              placeholder="Senha"
-              secureTextEntry={true}
-              autoCapitalize="none"
-              value={password}
-              onChangeText={setPassword}
-            />
-          </View>
-
-          {loading ? (
-            <Loading />
-          ) : (
-            <ButtonInterface title="Salvar" type="secondary" onPress={handleRegister} disabled={loading} />
-          )}
-
-          {error && <Text style={{ color: 'red' }}>{error}</Text>}
-
-          <ButtonInterface title="Voltar" type="primary" onPress={() => navigation.navigate('Login')} />
+        <View style={styles.formRow}>
+          <MaterialIcons name="email" style={styles.icon} />
+          <TextInput
+            placeholderTextColor={colors.grey}
+            style={styles.input}
+            placeholder="Email"
+            keyboardType="email-address"
+            autoCapitalize="none"
+            value={email}
+            onChangeText={setEmail}
+          />
         </View>
-      </KeyboardAvoidingView>
+
+        <View style={styles.formRow}>
+          <Entypo name="key" style={styles.icon} />
+          <TextInput
+            placeholderTextColor={colors.grey}
+            style={styles.input}
+            placeholder="Senha"
+            secureTextEntry={true}
+            autoCapitalize="none"
+            value={password}
+            onChangeText={setPassword}
+          />
+        </View>
+
+        {loading ? (
+          <Loading />
+        ) : (
+          <ButtonInterface title="Salvar" type="secondary" onPress={handleRegister} disabled={loading} />
+        )}
+
+        {error && <Text style={{ color: 'red' }}>{error}</Text>}
+
+        <ButtonInterface title="Voltar" type="primary" onPress={() => navigation.navigate('Login')} />
+      </View>
+    </KeyboardAvoidingView>
   );
 }
 
@@ -114,7 +132,6 @@ const colors = {
   primary: '#392566',
   secundary: '#F4F3F3',
   grey: '#888',
-
 };
 
 const styles = StyleSheet.create({
