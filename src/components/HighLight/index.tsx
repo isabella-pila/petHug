@@ -22,19 +22,20 @@ type HighLightProps = {
   title: string;
   image: ImageSourcePropType;
   category?: string;
-  descricao: string
+  descricao: string;
+  donoId: string;
 };
 
 type NavProp = NativeStackNavigationProp<HomeStackParamList>;
 
-export function HighLight({ id, title, image, category, descricao }: HighLightProps) {
+export function HighLight({ id, title, image, category, descricao,donoId }: HighLightProps) {
   const navigation = useNavigation<NavProp>();
 
   return (
     <TouchableOpacity
       style={styles.card}
       activeOpacity={0.8}
-      onPress={() => navigation.navigate("PetDetails", { id, title, image, descricao })}
+      onPress={() => navigation.navigate("PetDetails", { id, title, image, descricao , donoId})}
     >
       <Image
         

@@ -1,6 +1,3 @@
-
-
-
 import { supabase } from '../supabase/client/supabaseClient';
 import { IUserRepository } from '../../domain/repositories/UserRepository';
 import { User } from '../../domain/entities/User';
@@ -34,16 +31,16 @@ export class SupabaseUserRepository implements IUserRepository {
       throw new Error('Could not create user');
     }
 
+    // ✅ CORREÇÃO DAS COLUNAS AQUI
     const { error: profileError } = await supabase.from('users').insert({
       id: authData.user.id,
       name: user.name.value,
       email: user.email.value, 
-      latitude: user.location.latitude,
-      longitude: user.location.longitude,
+      location_lat: user.location.latitude,  
+      location_lng: user.location.longitude, 
     });
 
     if (profileError) {
-
       console.error("Failed to create user profile:", profileError.message);
       throw new Error('Failed to create user profile after authentication.');
     }
@@ -52,11 +49,12 @@ export class SupabaseUserRepository implements IUserRepository {
       authData.user.id,
       user.name,
       user.email,
-      Password.create('hashed_123'), // Password should not be held in the entity after registration
+      Password.create('hashed_123'),
       user.location
     );
   }
 
+  // 👇👇👇 A FUNÇÃO QUE TINHA SUMIDO ESTÁ DE VOLTA AQUI 👇👇👇
   async authenticate(email: string, password: string): Promise<User> {
     const { data: authData, error: authError } = await supabase.auth.signInWithPassword({
       email,
@@ -64,7 +62,7 @@ export class SupabaseUserRepository implements IUserRepository {
     });
 
     if (authError) {
-      throw new Error(authError.message+'aaa');
+      throw new Error(authError.message);
     }
     if (!authData.user) {
       throw new Error('User not found');
@@ -72,17 +70,23 @@ export class SupabaseUserRepository implements IUserRepository {
 
     const user = await this.findById(authData.user.id);
     if (!user) {
-      // This case means there's an auth user without a corresponding profile.
       throw new Error('User profile not found');
     }
 
     return user;
   }
-// ...
+
+  // Adicionei o logout também, pois seu header usa ele
+  async logout(): Promise<void> {
+    const { error } = await supabase.auth.signOut();
+    if (error) {
+      throw new Error(error.message);
+    }
+  }
 
   async findById(id: string): Promise<User | null> {
     const { data: profileData, error: profileError } = await supabase
-      .from('users') // Nome da tabela (plural)
+      .from('users')
       .select('*')
       .eq('id', id)
       .single();
@@ -94,8 +98,9 @@ export class SupabaseUserRepository implements IUserRepository {
       return null;
     }
 
-    const latitude = profileData.latitude ?? 0;
-    const longitude = profileData.longitude ?? 0;
+    // ✅ CORREÇÃO DAS COLUNAS AQUI TAMBÉM
+    const latitude = profileData.location_lat ?? 0;
+    const longitude = profileData.location_lng ?? 0;
 
     const name = profileData.name ?? 'Usuário';
     const email = profileData.email ?? '';
@@ -123,8 +128,10 @@ export class SupabaseUserRepository implements IUserRepository {
     if (!profileData) {
       return null;
     }
-    const latitude = profileData.latitude ?? 0;
-    const longitude = profileData.longitude ?? 0;
+    
+    // ✅ CORREÇÃO DAS COLUNAS AQUI TAMBÉM
+    const latitude = profileData.location_lat ?? 0;
+    const longitude = profileData.location_lng ?? 0;
 
     return User.create(
       profileData.id,
@@ -134,6 +141,4 @@ export class SupabaseUserRepository implements IUserRepository {
       GeoCoordinates.create(latitude, longitude)
     );
   }
-
-  
 }

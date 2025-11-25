@@ -94,6 +94,7 @@ export default function HomeScreen() {
         
             category={item.category || 'cachorro'}
             descricao={item.descricao}
+            donoId={item.donoId}
           />
         )}
         keyExtractor={item => item.id}

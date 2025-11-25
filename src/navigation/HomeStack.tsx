@@ -7,7 +7,7 @@ import { ImageSourcePropType } from 'react-native';
 
 export type HomeStackParamList = {
   HomeList: undefined;
-  PetDetails: { id: string; title: string; image: ImageSourcePropType; descricao: string };
+  PetDetails: { id: string; title: string; image: ImageSourcePropType; descricao: string, donoId: string};
   AdoptionMessage: undefined;
 
 };
