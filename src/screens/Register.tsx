@@ -7,6 +7,7 @@ import { MaterialIcons, Entypo, Ionicons } from "@expo/vector-icons";
 import { supabase } from '../core/infra/supabase/client/supabaseClient';
 import * as Location from 'expo-location';
 
+
 export function RegisterScreen({ navigation }: LoginTypes) {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -15,54 +16,83 @@ export function RegisterScreen({ navigation }: LoginTypes) {
   const [error, setError] = useState<string | null>(null);
 
   async function handleRegister() {
+   
+    if (!name.trim() || !email.trim() || !password.trim()) {
+      Alert.alert('Atenção', 'Por favor, preencha todos os campos.');
+      return;
+    }
+
+
+    if (password.length < 8) {
+      Alert.alert('Senha Fraca', 'A senha deve ter pelo menos 8 caracteres.');
+      return;
+    }
+
+    // (Removi a validação de formato de email, conforme pedido)
+
     setLoading(true);
     setError(null);
 
     try {
-      // 📍 PEDIR PERMISSÃO DE LOCALIZAÇÃO
+      // 📍 PERMISSÃO DE LOCALIZAÇÃO
       const { status } = await Location.requestForegroundPermissionsAsync();
       if (status !== 'granted') {
         Alert.alert("Erro", "Permissão de localização negada.");
+        setLoading(false);
         return;
       }
 
-      // 📍 PEGAR A LOCALIZAÇÃO REAL
-      const location = await Location.getCurrentPositionAsync({});
+      const location = await Location.getCurrentPositionAsync({ accuracy: Location.Accuracy.Balanced });
       const latitude = location.coords.latitude;
       const longitude = location.coords.longitude;
 
-      console.log("Localização capturada:", latitude, longitude);
-
-      // 📌 Registrar no Supabase com latitude/longitude
+      // 📌 REGISTRO NO SUPABASE
       const { data, error: signUpError } = await supabase.auth.signUp({
-        email: email,
-        password: password,
+        email: email.trim(),
+        password: password.trim(),
         options: {
           data: {
-            name,
-            latitude,
-            longitude,
+            name: name.trim(),
+            latitude, 
+            longitude, 
           },
         },
       });
 
       if (signUpError) throw signUpError;
 
+      // Se deu certo, salva na tabela pública também (Recomendado)
       if (data.user) {
-        Alert.alert("Registro Concluído!", "Seu cadastro foi realizado com sucesso.");
-        navigation.navigate('Login');
+         const { error: profileError } = await supabase
+          .from('users')
+          .insert({
+            id: data.user.id,
+            name: name.trim(),
+            email: email.trim(),
+            location_lat: latitude,
+            location_lng: longitude
+          });
+          
+          if (profileError) console.log("Erro ao salvar perfil público:", profileError);
+
+        Alert.alert("Sucesso!", "Cadastro realizado.", [
+            { text: "OK", onPress: () => navigation.navigate('Login') }
+        ]);
       }
 
     } catch (err: any) {
       console.error("Erro no registro:", err.message);
-      setError(err.message || 'Falha ao registrar usuário.');
-      Alert.alert('Erro no Registro', err.message);
+      setError(err.message);
+      Alert.alert('Erro', err.message);
     } finally {
       setLoading(false);
     }
   }
 
+  
   return (
+   
+
     <KeyboardAvoidingView
       style={styles.container}
       behavior="padding"

@@ -1,13 +1,14 @@
 import NetInfo from '@react-native-community/netinfo';
 import { IUserRepository } from '../../domain/repositories/UserRepository';
 import { User } from '../../domain/entities/User';
-import { SupabaseUserRepository } from './supabaseUserRepository'; // Ajuste o caminho se necessário
-import { SQLiteUserRepository } from '../sqlite/SQLiteUserRepository'; // Ajuste o caminho se necessário
+import { SupabaseUserRepository } from './supabaseUserRepository';
+import { SQLiteUserRepository } from '../sqlite/SQLiteUserRepository';
+import { Password } from '../../domain/value-objects/Password';
 
 export class HybridUserRepository implements IUserRepository {
   private static instance: HybridUserRepository;
   private onlineRepo: IUserRepository;
-  private offlineRepo: IUserRepository; // Assumindo que o SQLiteUserRepository implementa a mesma interface
+  private offlineRepo: IUserRepository;
 
   private constructor() {
     this.onlineRepo = SupabaseUserRepository.getInstance();
@@ -26,85 +27,117 @@ export class HybridUserRepository implements IUserRepository {
     return state.isConnected ?? false;
   }
 
-  // --- REGISTER ---
   async register(user: User): Promise<User> {
     if (await this.isOnline()) {
       try {
-        // Tenta registrar na nuvem
         const remoteUser = await this.onlineRepo.register(user);
-        
-        // Se der certo, tenta salvar uma cópia local (Cache)
-        try {
-            await this.offlineRepo.register(remoteUser);
-        } catch (localError) {
-            // Se o usuário já existir localmente, ignoramos o erro
-            // ou usamos um método de 'save/upsert' se existir no futuro
-            console.log('Usuário já existe localmente ou erro de cache:', localError);
-        }
-        
+        // Also save to local db for offline access
+        await this.offlineRepo.register(remoteUser);
         return remoteUser;
       } catch (error) {
-        console.warn('Registro online falhou, tentando offline.', error);
-        // Fallback: Salva localmente para subir depois
+        console.warn('Online registration failed, falling back to offline.', error);
         return this.offlineRepo.register(user);
       }
     }
-    // Sem internet: Salva direto no offline
     return this.offlineRepo.register(user);
   }
 
-  // --- AUTHENTICATE ---
   async authenticate(email: string, password: string): Promise<User> {
+   
     if (await this.isOnline()) {
       try {
-        const user = await this.onlineRepo.authenticate(email, password);
+        console.log("🔵 [Hybrid] Tentando login Online...");
         
-        // REMOVIDO: await this.offlineRepo.update(user);
-        // MOTIVO: Seu repositório não tem update.
-        // Opcional: Você pode tentar chamar .register(user) aqui dentro de um try/catch
-        // para garantir que os dados mais recentes da nuvem fiquem salvos no celular.
+       
+        const remoteUser = await this.onlineRepo.authenticate(email, password);
+        
+       
         try {
-             await this.offlineRepo.register(user); 
-        } catch (e) {
-             // Ignora erro se já existir no banco local
-        }
+            console.log("💾 [Hybrid] Salvando cópia no SQLite...");
+            
+         
+            const userWithPassword = User.create(
+                remoteUser.id,
+                remoteUser.name,
+                remoteUser.email,
+                Password.create(password),
+                remoteUser.location
+            );
 
-        return user;
+           
+            await this.offlineRepo.register(userWithPassword);
+            
+            console.log("✅ [Hybrid] Usuário salvo no SQLite com sucesso!");
+
+        } catch (e) {
+             console.log("⚠️ [Hybrid] Erro ao salvar cache local (pode já existir):", e);
+             
+             try {
+               
+             } catch (updErr) { console.log("Erro update:", updErr) }
+        }
+        
+
+        return remoteUser;
       } catch (error) {
-        console.warn('Autenticação online falhou, tentando offline.', error);
+        console.warn('🟠 [Hybrid] Falha online. Tentando offline...', error);
+        
         return this.offlineRepo.authenticate(email, password);
       }
     }
+    
+   
+    console.log("🔴 [Hybrid] Sem net. Indo para SQLite...");
     return this.offlineRepo.authenticate(email, password);
   }
 
-  // --- FIND BY EMAIL ---
   async findByEmail(email: string): Promise<User | null> {
     if (await this.isOnline()) {
-      try {
-        const user = await this.onlineRepo.findByEmail(email);
-        if (user) return user;
-      } catch (e) {
-        // Se der erro na rede, tenta local
-      }
+      return this.onlineRepo.findByEmail(email);
     }
     return this.offlineRepo.findByEmail(email);
   }
 
-  // --- FIND BY ID ---
   async findById(id: string): Promise<User | null> {
     if (await this.isOnline()) {
-        try {
-            const user = await this.onlineRepo.findById(id);
-            if (user) return user;
-        } catch (e) {
-            // Se der erro na rede, tenta local
-        }
+      return this.onlineRepo.findById(id);
     }
     return this.offlineRepo.findById(id);
   }
 
-  // REMOVIDO: async update(user: User) ...
-  // REMOVIDO: async delete(id: string) ... (Se sua interface não pede, não precisa)
-  // REMOVIDO: async findAll() ...
+  async update(user: User): Promise<void> {
+    if (await this.isOnline()) {
+      try {
+        await this.onlineRepo.update(user);
+        await this.offlineRepo.update(user);
+      } catch (error) {
+        console.warn('Online update failed, falling back to offline.', error);
+        await this.offlineRepo.update(user);
+      }
+    } else {
+      await this.offlineRepo.update(user);
+    }
+  }
+
+  async delete(id: string): Promise<void> {
+    if (await this.isOnline()) {
+      try {
+        await this.onlineRepo.delete(id);
+        await this.offlineRepo.delete(id);
+      } catch (error) {
+        console.warn('Online delete failed, falling back to offline.', error);
+        await this.offlineRepo.delete(id);
+      }
+    } else {
+      await this.offlineRepo.delete(id);
+    }
+  }
+  
+  async findAll(): Promise<User[]> {
+    if (await this.isOnline()) {
+        return this.onlineRepo.findAll();
+    }
+    return this.offlineRepo.findAll();
+  }
+  
 }

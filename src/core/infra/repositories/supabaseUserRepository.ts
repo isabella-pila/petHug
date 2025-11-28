@@ -21,7 +21,7 @@ export class SupabaseUserRepository implements IUserRepository {
   async register(user: User): Promise<User> {
     const { data: authData, error: authError } = await supabase.auth.signUp({
       email: user.email.value,
-      password: user.password.value, 
+      password: user.password.value,
     });
 
     if (authError) {
@@ -31,7 +31,7 @@ export class SupabaseUserRepository implements IUserRepository {
       throw new Error('Could not create user');
     }
 
-    // ✅ CORREÇÃO DAS COLUNAS AQUI
+
     const { error: profileError } = await supabase.from('users').insert({
       id: authData.user.id,
       name: user.name.value,
@@ -54,7 +54,7 @@ export class SupabaseUserRepository implements IUserRepository {
     );
   }
 
-  // 👇👇👇 A FUNÇÃO QUE TINHA SUMIDO ESTÁ DE VOLTA AQUI 👇👇👇
+
   async authenticate(email: string, password: string): Promise<User> {
     const { data: authData, error: authError } = await supabase.auth.signInWithPassword({
       email,
@@ -76,7 +76,7 @@ export class SupabaseUserRepository implements IUserRepository {
     return user;
   }
 
-  // Adicionei o logout também, pois seu header usa ele
+ 
   async logout(): Promise<void> {
     const { error } = await supabase.auth.signOut();
     if (error) {
@@ -98,7 +98,6 @@ export class SupabaseUserRepository implements IUserRepository {
       return null;
     }
 
-    // ✅ CORREÇÃO DAS COLUNAS AQUI TAMBÉM
     const latitude = profileData.location_lat ?? 0;
     const longitude = profileData.location_lng ?? 0;
 
@@ -129,7 +128,7 @@ export class SupabaseUserRepository implements IUserRepository {
       return null;
     }
     
-    // ✅ CORREÇÃO DAS COLUNAS AQUI TAMBÉM
+ 
     const latitude = profileData.location_lat ?? 0;
     const longitude = profileData.location_lng ?? 0;
 
@@ -141,4 +140,58 @@ export class SupabaseUserRepository implements IUserRepository {
       GeoCoordinates.create(latitude, longitude)
     );
   }
+
+  async update(user: User): Promise<void> {
+    const { error } = await supabase
+      .from('users')
+      .update({
+        name: user.name.value,
+        location_lat: user.location.latitude,
+        location_lng: user.location.longitude,
+        
+      })
+      .eq('id', user.id);
+
+    if (error) {
+      throw new Error(error.message);
+    }
+  }
+  async delete(id: string): Promise<void> {
+    const { error } = await supabase
+      .from('users')
+      .delete()
+      .eq('id', id);
+
+    if (error) {
+      throw new Error(error.message);
+    }
+    
+
+  }
+  async findAll(): Promise<User[]> {
+    const { data, error } = await supabase
+      .from('users')
+      .select('*');
+
+    if (error) {
+      throw new Error(error.message);
+    }
+
+    if (!data) return [];
+
+    return data.map(item => 
+      User.create(
+        item.id,
+        Name.create(item.name ?? 'Sem nome'),
+        Email.create(item.email ?? ''),
+        Password.create(item.password ?? 'placeholder'),
+        GeoCoordinates.create(
+            item.location_lat ?? 0, 
+            item.location_lng ?? 0
+        )
+      )
+    );
+  }
+
+ 
 }

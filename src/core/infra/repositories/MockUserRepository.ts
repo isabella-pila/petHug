@@ -64,4 +64,12 @@ export class MockUserRepository implements IUserRepository {
     return user;
   }
 
+
+  async findAll(): Promise<User[]> {
+   
+    console.log("Mock: Buscando todos os usuários (retornando vazio)");
+    return [];
+  }
+
+
 }

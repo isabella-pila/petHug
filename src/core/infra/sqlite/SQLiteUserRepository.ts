@@ -5,7 +5,6 @@ import { Name } from '../../domain/value-objects/Name';
 import { Email } from '../../domain/value-objects/Email';
 import { Password } from '../../domain/value-objects/Password';
 import { GeoCoordinates } from '../../domain/value-objects/GeoCoordinates';
-import { v4 as uuid } from 'uuid';
 
 export class SQLiteUserRepository implements IUserRepository {
   private static instance: SQLiteUserRepository;
@@ -21,20 +20,38 @@ export class SQLiteUserRepository implements IUserRepository {
 
   async register(user: User): Promise<User> {
     const db = await DatabaseConnection.getConnection();
-    const id = uuid();
-    const hashedPassword = `hashed_${user.password.value}`; // Mock hashing
     
+    // Usa o ID original do usuário (vindo do Supabase)
+    const id = user.id; 
+    
+    // Cria o hash fake apenas para salvar no banco
+    const hashedPassword = `hashed_${user.password.value}`; 
+    
+    console.log(`[SQLite] Salvando usuário offline: ${user.email.value}`);
+
     await db.runAsync(
-      'INSERT INTO users (id, name, email, password_hash, latitude, longitude, sync_status) VALUES (?, ?, ?, ?, ?, ?, ?)',
-      id, user.name.value, user.email.value, hashedPassword, user.location.latitude, user.location.longitude, 'pending_create'
+      `INSERT OR REPLACE INTO users (id, name, email, password_hash, latitude, longitude, sync_status) 
+       VALUES (?, ?, ?, ?, ?, ?, ?)`,
+      id, 
+      user.name.value, 
+      user.email.value, 
+      hashedPassword, 
+      user.location.latitude, 
+      user.location.longitude, 
+      'synced'
     );
 
-    const newUser = User.create(id, user.name, user.email, Password.create(hashedPassword), user.location);
-    return newUser;
+    // ⚠️ CORREÇÃO AQUI:
+    // Retornamos o usuário original. Não tentamos recriar com Password.create() 
+    // porque o 'hashedPassword' pode violar as regras de validação da sua classe Password.
+    return user;
   }
 
   async authenticate(email: string, password: string): Promise<User> {
     const db = await DatabaseConnection.getConnection();
+    
+    console.log(`[SQLite] Tentando login offline para: ${email}`);
+
     const userRow = await db.getFirstAsync<any>(
       'SELECT * FROM users WHERE email = ?',
       email
@@ -42,7 +59,12 @@ export class SQLiteUserRepository implements IUserRepository {
 
     if (userRow) {
       const isPasswordValid = `hashed_${password}` === userRow.password_hash;
+      
       if (isPasswordValid) {
+        console.log("[SQLite] Login offline: Sucesso!");
+        
+        // Aqui recriamos o usuário lendo do banco
+        // SE DER ERRO AQUI, você precisa relaxar a validação no arquivo Password.ts
         return User.create(
           userRow.id,
           Name.create(userRow.name),
@@ -51,9 +73,11 @@ export class SQLiteUserRepository implements IUserRepository {
           GeoCoordinates.create(userRow.latitude, userRow.longitude)
         );
       } else {
+        console.error("[SQLite] Login offline: Senha incorreta.");
         throw new Error('Invalid credentials 1');
       }
     } else {
+      console.error("[SQLite] Login offline: Email não encontrado no banco local.");
       throw new Error('Invalid credentials 2');
     }
   }

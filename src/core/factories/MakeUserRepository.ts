@@ -11,11 +11,9 @@ import { MockUserRepository } from '../infra/repositories/MockUserRepository';
 
 
 export function makeUserUseCases() {
-  
-    const userRepository: IUserRepository = process.env.EXPO_PUBLIC_USE_API
-    ? HybridUserRepository.getInstance()
-    : MockUserRepository.getInstance();
 
+  const userRepository: IUserRepository = HybridUserRepository.getInstance();
+    
 
   /*
   const userRepository: IUserRepository = process.env.EXPO_PUBLIC_USE_API === 'true'
@@ -35,5 +33,6 @@ export function makeUserUseCases() {
     registerUser,
     loginUser,
     findUser,
+
   };
 }
