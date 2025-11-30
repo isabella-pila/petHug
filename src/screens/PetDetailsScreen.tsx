@@ -187,71 +187,71 @@ export default function PetDetailsScreen({ route }: Props) {
                   </Text>
                 )}
 
-                <MapView
-                  ref={mapRef}
-                  provider={PROVIDER_GOOGLE}
-                  style={{
-                    width: "100%",
-                    height: 300,
-                    borderRadius: 12,
-                    marginTop: 12,
-                    
+            <MapView
+              ref={mapRef}
+              provider={PROVIDER_GOOGLE}
+              userInterfaceStyle="light" 
+              style={{
+                width: "100%",
+                height: 300,
+                borderRadius: 12,
+                marginTop: 12,
+              }}
+              initialRegion={mapRegion}
+            >
+              {owner && (
+                <Marker
+                  coordinate={{
+                    latitude: owner.latitude,
+                    longitude: owner.longitude,
                   }}
-                  initialRegion={mapRegion}
-                >
-                  {owner && (
-                    <Marker
-                      coordinate={{
-                        latitude: owner.latitude,
-                        longitude: owner.longitude,
-                      }}
-                      title={owner.name}
-                      description="Local do dono"
-                      pinColor="purple"
-                    />
-                  )}
-                  
-                  {viewer && (
-                     <Marker
-                       coordinate={{
-                         latitude: viewer.latitude,
-                         longitude: viewer.longitude,
-                       }}
-                       title="Você"
-                       pinColor="blue"
-                     />
-                   )}
+                  title={owner.name}
+                  description="Local do dono"
+                  pinColor="purple"
+                />
+              )}
 
-                  {owner && viewer && GOOGLE_API_KEY && (
-                    <MapViewDirections
-                      origin={{
-                        latitude: viewer.latitude,
-                        longitude: viewer.longitude,
-                      }}
-                      destination={{
-                        latitude: owner.latitude,
-                        longitude: owner.longitude,
-                      }}
-                      apikey={GOOGLE_API_KEY} 
-                      strokeWidth={4}
-                      strokeColor={colors.primary}
-                      optimizeWaypoints={true}
-                      onReady={(result) => {
-                        mapRef.current?.fitToCoordinates(result.coordinates, {
-                          edgePadding: {
-                            right: 30,
-                            bottom: 30,
-                            left: 30,
-                            top: 30,
-                          },
-                        });
-                      }}
-                      onError={(errorMessage) => {
-                        console.log("Erro rota:", errorMessage);
-                      }}
-                    />
-                  )}
-                </MapView>
+              {viewer && (
+                <Marker
+                  coordinate={{
+                    latitude: viewer.latitude,
+                    longitude: viewer.longitude,
+                  }}
+                  title="Você"
+                  pinColor="#036ffc"
+                />
+              )}
+
+              {owner && viewer && GOOGLE_API_KEY && (
+                <MapViewDirections
+                  origin={{
+                    latitude: viewer.latitude,
+                    longitude: viewer.longitude,
+                  }}
+                  destination={{
+                    latitude: owner.latitude,
+                    longitude: owner.longitude,
+                  }}
+                  apikey={GOOGLE_API_KEY}
+                  strokeWidth={4}
+                  strokeColor={colors.primary}
+                  optimizeWaypoints={true}
+                  onReady={(result) => {
+                    mapRef.current?.fitToCoordinates(result.coordinates, {
+                      edgePadding: {
+                        right: 30,
+                        bottom: 30,
+                        left: 30,
+                        top: 30,
+                      },
+                    });
+                  }}
+                  onError={(errorMessage) => {
+                    console.log("Erro rota:", errorMessage);
+                  }}
+                />
+              )}
+            </MapView>
               </>
             )}
           </View>
