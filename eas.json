@@ -1,6 +1,9 @@
 {
   "build": {
     "preview": {
+      "env": {
+        "EXPO_PUBLIC_GOOGLE_PLACES": "AIzaSyAB0DnFdzqNTipL3yayTE6zIfVgNSfnDLM"
+      },
       "android": {
         "buildType": "apk"
       },

@@ -22,7 +22,11 @@
       },
       "edgeToEdgeEnabled": true,
       "predictiveBackGestureEnabled": false,
-      "package": "com.isabellapila.petteste"
+      "package": "com.isabellapila.petteste",
+      "config": {
+        "googleMaps": {
+          "apiKey": "AIzaSyAB0DnFdzqNTipL3yayTE6zIfVgNSfnDLM"
+        }}
     },
     "web": {
       "favicon": "./assets/favicon.png"
