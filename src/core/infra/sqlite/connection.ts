@@ -3,7 +3,9 @@ import { migrations } from './migrations';
 
 class DatabaseConnection {
   private static instance: SQLite.SQLiteDatabase | null = null;
-  private static dbName: string = 'vinyl.db';
+  
+ 
+  private static dbName: string = 'pets_v2.db'; 
 
   static async getConnection(): Promise<SQLite.SQLiteDatabase> {
     if (!this.instance) {
@@ -32,7 +34,7 @@ class DatabaseConnection {
         console.log(`Migration ${i + 1} executed successfully.`);
       } catch (error) {
         console.error(`Error executing migration ${i + 1}:`, error);
-        // If a migration fails, you might want to handle it, e.g., by rolling back or stopping the app.
+     
         throw error;
       }
     }

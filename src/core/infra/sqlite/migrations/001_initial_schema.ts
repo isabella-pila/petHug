@@ -12,10 +12,13 @@ export const migration_001 = `
 
   CREATE TABLE IF NOT EXISTS pets (
     id TEXT PRIMARY KEY NOT NULL,
-    name TEXT NOT NULL,
-    description TEXT,
-    photo_url TEXT,
     owner_id TEXT NOT NULL,
+    name TEXT NOT NULL,
+    photo_url TEXT,
+    category TEXT NOT NULL,
+    description TEXT,
+ 
+   
   
     sync_status TEXT NOT NULL DEFAULT 'synced',
     FOREIGN KEY (owner_id) REFERENCES users(id)

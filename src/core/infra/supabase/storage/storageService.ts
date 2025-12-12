@@ -12,7 +12,7 @@ export class SupabaseStorageService implements IStorageService {
 
   async uploadImage(imageAsset: ImagePicker.ImagePickerAsset, bucket: string,  userId: string): Promise<string> {
     try {
-      // Pedir permissão para acessar a galeria
+      
       const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync()
       if (status !== 'granted') {
         throw new Error('Permissão para acessar galeria negada')
@@ -24,8 +24,8 @@ export class SupabaseStorageService implements IStorageService {
       const formData = new FormData();
       formData.append('file', {
         uri: imageAsset.uri,
-        name: imageAsset.fileName || `photo_${Date.now()}.jpg`, // Tenta pegar o nome, senão gera um
-        type: imageAsset.mimeType ?? 'image/jpeg', // Tenta pegar o tipo, senão usa um padrão
+        name: imageAsset.fileName || `photo_${Date.now()}.jpg`, 
+        type: imageAsset.mimeType ?? 'image/jpeg', 
       } as unknown as Blob);
 
       const { error: uploadError } = await supabase.storage

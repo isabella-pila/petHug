@@ -13,7 +13,7 @@ import { RouteProp, useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { HomeStackParamList } from "./../navigation/HomeStack";
 import CustomHeader from "../components/Header/CustomHeader";
-import MapView, { Marker, PROVIDER_GOOGLE } from "react-native-maps";
+import MapView, { Circle, Marker, PROVIDER_GOOGLE } from "react-native-maps";
 import * as Location from "expo-location";
 import { makeUserUseCases } from "../core/factories/MakeUserRepository";
 import MapViewDirections from 'react-native-maps-directions';
@@ -187,78 +187,93 @@ export default function PetDetailsScreen({ route }: Props) {
                   </Text>
                 )}
 
-            <MapView
-              ref={mapRef}
-              provider={PROVIDER_GOOGLE}
-              userInterfaceStyle="light" 
-              style={{
-                width: "100%",
-                height: 300,
-                borderRadius: 12,
-                marginTop: 12,
-              }}
-              initialRegion={mapRegion}
-            >
-              {owner && (
-                <Marker
-                  coordinate={{
-                    latitude: owner.latitude,
-                    longitude: owner.longitude,
-                  }}
-                  title={owner.name}
-                  description="Local do dono"
-                  pinColor="purple"
-                />
-              )}
+           <MapView
+  ref={mapRef}
+  provider={PROVIDER_GOOGLE}
+  userInterfaceStyle="light"
+  style={{
+    width: "100%",
+    height: 300,
+    borderRadius: 12,
+    marginTop: 12,
+  }}
+  initialRegion={mapRegion}
+>
+  {owner && (
+    <Marker
+      coordinate={{
+        latitude: owner.latitude,
+        longitude: owner.longitude,
+      }}
+      title={owner.name}
+      description="Local do dono"
+      pinColor="purple"
+    />
+  )}
 
-              {viewer && (
-                <Marker
-                  coordinate={{
-                    latitude: viewer.latitude,
-                    longitude: viewer.longitude,
-                  }}
-                  title="Você"
-                  pinColor="#036ffc"
-                />
-              )}
+  {viewer && (
+    <>
+ 
+      <Marker
+        coordinate={{
+          latitude: viewer.latitude,
+          longitude: viewer.longitude,
+        }}
+        title="Você"
+        pinColor="#036ffc"
+      />
 
-              {owner && viewer && GOOGLE_API_KEY && (
-                <MapViewDirections
-                  origin={{
-                    latitude: viewer.latitude,
-                    longitude: viewer.longitude,
-                  }}
-                  destination={{
-                    latitude: owner.latitude,
-                    longitude: owner.longitude,
-                  }}
-                  apikey={GOOGLE_API_KEY}
-                  strokeWidth={4}
-                  strokeColor={colors.primary}
-                  optimizeWaypoints={true}
-                  onReady={(result) => {
-                    mapRef.current?.fitToCoordinates(result.coordinates, {
-                      edgePadding: {
-                        right: 30,
-                        bottom: 30,
-                        left: 30,
-                        top: 30,
-                      },
-                    });
-                  }}
-                  onError={(errorMessage) => {
-                    console.log("Erro rota:", errorMessage);
-                  }}
-                />
-              )}
-            </MapView>
+    
+      <Circle
+        center={{
+          latitude: viewer.latitude,
+          longitude: viewer.longitude,
+        }}
+        radius={500} 
+        strokeWidth={1}
+        strokeColor="#036ffc" 
+        fillColor="rgba(3, 111, 252, 0.2)" 
+      />
+    </>
+  )}
+
+  {owner && viewer && GOOGLE_API_KEY && (
+    <MapViewDirections
+      origin={{
+        latitude: viewer.latitude,
+        longitude: viewer.longitude,
+      }}
+      destination={{
+        latitude: owner.latitude,
+        longitude: owner.longitude,
+      }}
+      apikey={GOOGLE_API_KEY}
+      strokeWidth={4}
+      strokeColor={colors.primary}
+      optimizeWaypoints={true}
+      onReady={(result) => {
+        mapRef.current?.fitToCoordinates(result.coordinates, {
+          edgePadding: {
+            right: 30,
+            bottom: 30,
+            left: 30,
+            top: 30,
+          },
+        });
+      }}
+      onError={(errorMessage) => {
+        console.log("Erro rota:", errorMessage);
+      }}
+    />
+  )}
+</MapView>
               </>
             )}
           </View>
         </View>
       </ScrollView>
       
-      {/* Footer com botões */}
+
       <View style={styles.footer}>
         <TouchableOpacity
           onPress={() => navigation.goBack()}

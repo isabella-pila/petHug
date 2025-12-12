@@ -11,19 +11,26 @@ import { Email } from '../domain/value-objects/Email';
 import { Password } from '../domain/value-objects/Password';
 import { GeoCoordinates } from '../domain/value-objects/GeoCoordinates';
 import { Photo } from '../domain/value-objects/Photo';
+import { PetPerfil } from '../domain/entities/PetPerfil';
+import { IPetPerfilRepository } from '../domain/repositories/PetPerfilRepository';
+import { makePetPerfilUseCases } from '../factories/MakePetPerfilRepository';
+import { SupabasePetPerfilRepository } from '../infra/repositories/supabasePetRepository';
 
 
 export class SyncService {
   private static instance: SyncService;
   private isSyncing: boolean = false;
   private userRepository: IUserRepository;
+  private petRepository: IPetPerfilRepository;
 
 
   private constructor(
-    userRepository: IUserRepository
+    userRepository: IUserRepository,
+    petRepository: IPetPerfilRepository
 
   ) {
     this.userRepository = userRepository;
+    this.petRepository = petRepository;
  
     NetInfo.addEventListener(state => {
       if (state.isConnected && !this.isSyncing) {
@@ -34,10 +41,11 @@ export class SyncService {
 
   public static getInstance(
     userRepository: IUserRepository = SupabaseUserRepository.getInstance(),
-
+petRepository: IPetPerfilRepository = SupabasePetPerfilRepository.getInstance() 
   ): SyncService {
     if (!SyncService.instance) {
-      SyncService.instance = new SyncService(userRepository);
+
+      SyncService.instance = new SyncService(userRepository, petRepository);
     }
     return SyncService.instance;
   }
@@ -137,5 +145,96 @@ export class SyncService {
     }
   }
 
+  private async syncPets() {
+    const db = await DatabaseConnection.getConnection();
+    
+    
+    const pendingPets = await db.getAllAsync<any>("SELECT * FROM pets WHERE sync_status != 'synced'");
+
+    if (pendingPets.length > 0) {
+        console.log(` [Sync Pet] Encontrados ${pendingPets.length} pets para sincronizar.`);
+    } else {
+        return; // Nada para fazer
+    }
+
+  
+    const { uploadFile } = makePetPerfilUseCases();
+
+    for (const petRow of pendingPets) {
+      let finalPhotoUrl = petRow.photo_url;
+
+      try {
+       
+        if (finalPhotoUrl && finalPhotoUrl.startsWith('file://')) {
+          console.log(`📤 [Sync Pet] Subindo foto local do pet: ${petRow.name}`);
+          
+         
+          const imageAsset = { 
+            uri: finalPhotoUrl, 
+            type: 'image/jpeg', 
+            fileName: `sync_${petRow.id}.jpg` 
+          };
+
+         
+          const uploadedUrl = await uploadFile.execute({
+            imageAsset: imageAsset as any, 
+            bucket: 'pets_bucket', 
+            userId: petRow.owner_id,
+          });
+          
+          finalPhotoUrl = uploadedUrl;
+          console.log(`📸 [Sync Pet] Foto enviada com sucesso: ${finalPhotoUrl}`);
+        }
+
+       
+        const pet = PetPerfil.reconstitute(
+          petRow.id,
+          Name.create(petRow.name),
+          Photo.create(finalPhotoUrl), 
+          petRow.category || '',
+          petRow.description || '',
+          petRow.owner_id
+        );
+
+        if (petRow.sync_status === 'pending_create') {
+          await this.petRepository.save(pet);
+        } else if (petRow.sync_status === 'pending_update') {
+          await this.petRepository.update(pet);
+        }
+
+        await db.runAsync(
+          "UPDATE pets SET photo_url = ?, sync_status = 'synced' WHERE id = ?",
+          finalPhotoUrl,
+          pet.id
+        );
+        console.log(`✅ [Sync Pet] Pet ${pet.name.value} sincronizado com sucesso!`);
+
+      } catch (error) {
+        console.error(`❌ [Sync Pet] Falha ao sincronizar Pet ID ${petRow.id}:`, error);
+       
+      }
+    }
+  }
+
+  
+  private async updateLocalPets(remotePets: PetPerfil[]) {
+    const db = await DatabaseConnection.getConnection();
+    
+    for (const pet of remotePets) {
+        
+        await db.runAsync(
+            `INSERT OR REPLACE INTO pets (
+                id, name, description, photo_url, category, owner_id, sync_status
+             ) VALUES (?, ?, ?, ?, ?, ?, 'synced')`,
+            pet.id, 
+            pet.name.value, 
+            pet.descricao, 
+            pet.foto.url, 
+            pet.category, 
+            pet.donoId
+        );
+    }
+    console.log(`⬇️ [Sync Pet] ${remotePets.length} pets baixados e salvos no cache local.`);
+  }
  
 }

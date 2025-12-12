@@ -23,7 +23,6 @@ export default function CadastrarPetScreen() {
     const { registerPerfilPet, uploadFile } = makePetPerfilUseCases();
     const { user } = useAuth();
 
-    // --- Estados do Formulário ---
     const [nome, setNome] = useState('');
     const [fotoAsset, setFotoAsset] = useState<ImagePicker.ImagePickerAsset | null>(null); 
     const [descricao, setDescricao] = useState('');
@@ -31,17 +30,17 @@ export default function CadastrarPetScreen() {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
 
-    // --- Estados da Câmera ---
+
     const [showCameraModal, setShowCameraModal] = useState(false);
     const [facing, setFacing] = useState<CameraType>('back');
     const [cameraPermission, requestCameraPermission] = ImagePicker.useCameraPermissions();
     const cameraRef = useRef<CameraView>(null);
     const [capturedPhoto, setCapturedPhoto] = useState<CameraCapturedPicture | null>(null);
 
-    //  2. Permissão da GALERIA (precisamos pedir agora)
+ 
     const [galleryPermission, requestGalleryPermission] = ImagePicker.useMediaLibraryPermissions();
 
-    // --- CHECAGEM DE PERMISSÕES ---
+ 
     async function checkGalleryPermission(): Promise<boolean> {
         if (!galleryPermission) return false; // Ainda carregando
 
@@ -74,7 +73,7 @@ export default function CadastrarPetScreen() {
     }
 
 
-    //  3. FUNÇÃO PARA ABRIR A GALERIA
+
     const handlePickImageFromGallery = async () => {
         const hasPermission = await checkGalleryPermission();
         if (!hasPermission) return;
@@ -84,23 +83,22 @@ export default function CadastrarPetScreen() {
             allowsEditing: true,
             aspect: [4, 3],
             quality: 0.7,
-            base64: true, // Essencial para o upload
+            base64: true, 
         });
 
         if (!result.canceled) {
-            setFotoAsset(result.assets[0]); //  Salva direto no estado final
+            setFotoAsset(result.assets[0]); 
         }
     };
 
-    //  4. FUNÇÃO PARA ABRIR A CÂMERA
     const handleOpenGamera = async () => {
         const hasPermission = await checkCameraPermission();
         if (hasPermission) {
-            setShowCameraModal(true); // Abre o modal da câmera
+            setShowCameraModal(true); 
         }
     };
 
-    // --- Funções Internas da Câmera (sem mudanças) ---
+  
     function toggleCameraFacing() {
         setFacing(current => (current === 'back' ? 'front' : 'back'));
     }
@@ -117,18 +115,18 @@ export default function CadastrarPetScreen() {
 
     const confirmPhoto = () => {
         if (capturedPhoto && capturedPhoto.base64) {
-            //  ADAPTADOR: Converte a foto da câmera para o formato que o 'uploadFile' espera
+           
             const adaptedAsset: ImagePicker.ImagePickerAsset = {
                 uri: capturedPhoto.uri,
                 base64: capturedPhoto.base64,
                 mimeType: 'image/jpeg',
                 width: capturedPhoto.width,
                 height: capturedPhoto.height,
-                // O resto não é usado pelo seu serviço
+               
                 assetId: undefined, duration: undefined, exif: undefined,
                 fileName: undefined, fileSize: undefined, type: undefined,
             };
-            setFotoAsset(adaptedAsset); //  Salva no estado final
+            setFotoAsset(adaptedAsset); 
             setCapturedPhoto(null);
             setShowCameraModal(false);
         }
@@ -138,7 +136,7 @@ export default function CadastrarPetScreen() {
         setCapturedPhoto(null);
     };
 
-    //  4. FUNÇÃO PARA ABRIR
+   
 
     const handleCadastrar = async () => {
   
@@ -154,14 +152,14 @@ export default function CadastrarPetScreen() {
         setLoading(true);
         setError(null);
         try {
-            // PASSO 1: UPLOAD 
+          
             const finalPhotoUrl = await uploadFile.execute({
                 imageAsset: fotoAsset,
                 bucket: SUPABASE_BUCKET_NAME,
                 userId: user.id
             });
 
-            // PASSO 2: REGISTRO
+        
             await registerPerfilPet.execute({
                 nome,
                 photoUrl: finalPhotoUrl,
@@ -182,7 +180,6 @@ export default function CadastrarPetScreen() {
         }
     };
 
-    // --- JSX (O que aparece na tela) ---
 return (
   <View style={styles.container}>
     <CustomHeader />
@@ -265,7 +262,7 @@ return (
 
           {error && <Text style={styles.errorText}>{error}</Text>}
 
-          {/* 🔥 Botão voltar sempre visível */}
+        
           <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backButton} disabled={loading}>
             <Text style={styles.adoptButtonText}>Voltar</Text>
           </TouchableOpacity>
@@ -474,4 +471,4 @@ const styles = StyleSheet.create({
         resizeMode: 'cover',
         justifyContent: 'space-between',
     },
-});
+}); 

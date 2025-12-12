@@ -1,9 +1,11 @@
 // --- Repositórios ---
 import { IPetPerfilRepository } from '../domain/repositories/PetPerfilRepository';
 import { IUserRepository } from '../domain/repositories/UserRepository';
-import { SupabaseUserRepository } from '../infra/repositories/supabaseUserRepository'
-import { MockPetPerfilRepository } from '../infra/repositories/MockPetPerfilRepository';
-import { MockUserRepository } from '../infra/repositories/MockUserRepository';
+
+// Importe o Híbrido aqui
+import { HybridPetPerfilRepository } from '../infra/repositories/HybridPetPerfilRepository'; 
+import { HybridUserRepository } from '../infra/repositories/HybridUserRepository'; // Assumindo que você tem o de user também
+
 // --- Use Cases ---
 import { RegisterPerfilPet } from '../domain/use-cases/petPerfil/RegisterPet';
 import { UpdatePetPerfil } from '../domain/use-cases/petPerfil/UpadatePet';
@@ -11,19 +13,18 @@ import { DeletePetPerfil } from '../domain/use-cases/petPerfil/DeletePet';
 import { FindPetPerfil } from '../domain/use-cases/petPerfil/FindPet';
 import { FindPetsByDonoId } from '../domain/use-cases/petPerfil/FindPetsByDonoId';
 import { FindAllPets } from '../domain/use-cases/petPerfil/FindAllPets';
-import { SupabasePetPerfilRepository } from '../infra/repositories/supabasePetRepository';
 
-import {UploadFileUseCase} from "../domain/use-cases/UploadFile"
-import {DeleteFileUseCase} from "../domain/use-cases/DeleteFile"
-import {SupabaseStorageService} from "../infra/supabase/storage/storageService"
+import { UploadFileUseCase } from "../domain/use-cases/UploadFile";
+import { DeleteFileUseCase } from "../domain/use-cases/DeleteFile";
+import { SupabaseStorageService } from "../infra/supabase/storage/storageService";
 
 export function makePetPerfilUseCases() {
  
-  const petProfileRepository: IPetPerfilRepository = SupabasePetPerfilRepository.getInstance();
+  // ✨ MUDANÇA: Usando o Repositório Híbrido para Pets
+  const petProfileRepository: IPetPerfilRepository = HybridPetPerfilRepository.getInstance();
    
-const userRepository: IUserRepository = SupabaseUserRepository.getInstance();
-
-
+  // ✨ MUDANÇA: Usando o Repositório Híbrido para Users (Recomendado)
+  const userRepository: IUserRepository = HybridUserRepository.getInstance();
 
   const registerPerfilPet = new RegisterPerfilPet(
     petProfileRepository,
@@ -36,10 +37,9 @@ const userRepository: IUserRepository = SupabaseUserRepository.getInstance();
   const findByDonoId = new FindPetsByDonoId(petProfileRepository);
   const findAllPets = new FindAllPets(petProfileRepository);
 
-  const supabaseStorageRepository = new SupabaseStorageService
-  const uploadFile = new UploadFileUseCase(supabaseStorageRepository)
-  const deleteFile = new DeleteFileUseCase(supabaseStorageRepository)
-
+  const supabaseStorageRepository = new SupabaseStorageService();
+  const uploadFile = new UploadFileUseCase(supabaseStorageRepository);
+  const deleteFile = new DeleteFileUseCase(supabaseStorageRepository);
 
   return {
     registerPerfilPet,
@@ -48,7 +48,6 @@ const userRepository: IUserRepository = SupabaseUserRepository.getInstance();
     findPerfilPet,
     findByDonoId,
     findAllPets,
-
     uploadFile,
     deleteFile
   };
